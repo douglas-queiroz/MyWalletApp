@@ -1,0 +1,16 @@
+
+CREATE TABLE CurrencyConversion (
+    id integer NOT NULL PRIMARY KEY,
+    currency_from_id INTEGER NOT NULL,
+    currency_to_id INTEGER NOT NULL,
+    symbol TEXT DEFAULT NULL,
+    created_at TEXT NOT NULL,
+    updated_at TEXT NOT NULL
+);
+
+insert:
+INSERT INTO CurrencyConversion(
+    id, currency_from_id, currency_to_id, symbol, created_at, updated_at
+) VALUES (
+    ?, ?, ?, ?, ?, ?
+);

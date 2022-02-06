@@ -1,0 +1,16 @@
+
+CREATE TABLE CurrencyQuotation (
+    id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    currency_conversion_id INTEGER NOT NULL,
+    date TEXT,
+    price REAL AS Float,
+    created_at TEXT NOT NULL,
+    updated_at TEXT NOT NULL
+);
+
+insert:
+INSERT INTO CurrencyQuotation(
+    id, currency_conversion_id, date, price , created_at, updated_at
+) VALUES (
+    ?, ?, ?, ?, ?, ?
+);

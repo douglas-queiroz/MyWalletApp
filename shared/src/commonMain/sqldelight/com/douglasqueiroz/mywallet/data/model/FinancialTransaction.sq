@@ -1,0 +1,20 @@
+
+CREATE TABLE FinancialTransaction (
+    id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    date TEXT,
+    quantity REAL AS Float,
+    price REAL AS Float,
+    total REAL AS Float,
+    transactionable_id INTEGER,
+    transactionable_type TEXT,
+    created_at TEXT NOT NULL,
+    updated_at TEXT NOT NULL
+);
+
+
+insert:
+INSERT INTO FinancialTransaction(
+    id, date, quantity, price, total, transactionable_id, transactionable_type, created_at, updated_at
+) VALUES (
+    ?, ?, ?, ?, ?, ?, ?, ?, ?
+);

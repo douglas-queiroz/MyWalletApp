@@ -1,0 +1,16 @@
+
+CREATE TABLE FixedIncome (
+    id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    name TEXT,
+    currency_id INTEGER NOT NULL,
+    type TEXT,
+    created_at TEXT NOT NULL,
+    updated_at TEXT NOT NULL
+);
+
+insert:
+INSERT INTO FixedIncome(
+    id, name, currency_id, type, created_at, updated_at
+) VALUES (
+    ?, ?, ?, ?, ?, ?
+);

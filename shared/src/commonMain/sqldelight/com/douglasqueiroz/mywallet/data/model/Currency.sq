@@ -1,0 +1,18 @@
+
+CREATE TABLE Currency (
+    id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    name TEXT,
+    symbol TEXT,
+    created_at TEXT NOT NULL,
+    updated_at TEXT NOT NULL
+);
+
+insert:
+INSERT INTO Currency(
+    id, name, symbol, created_at, updated_at
+) VALUES (
+    ?, ?, ?, ?, ?
+);
+
+deleteAll:
+DELETE FROM Currency;
