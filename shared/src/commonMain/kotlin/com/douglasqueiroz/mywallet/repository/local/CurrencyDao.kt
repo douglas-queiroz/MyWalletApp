@@ -25,8 +25,8 @@ internal class CurrencyDao(
                 id = currencyDto.id,
                 name = currencyDto.name,
                 symbol = currencyDto.symbol,
-                created_at = instantNow.toString(),
-                updated_at = instantNow.toString()
+                created_at = currencyDto.createdAt.toString(),
+                updated_at = currencyDto.updatedAt.toString()
             )
         }
     }
