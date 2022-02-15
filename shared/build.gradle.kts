@@ -9,6 +9,7 @@ plugins {
 val coroutinesVersion = "1.5.0-native-mt"
 val serializationVersion = "1.2.2"
 val ktorVersion = "1.6.1"
+val datetime = "0.3.2"
 
 version = "1.0"
 
@@ -38,6 +39,7 @@ kotlin {
                 implementation("io.ktor:ktor-client-core:$ktorVersion")
                 implementation("io.ktor:ktor-client-serialization:$ktorVersion")
                 implementation("com.squareup.sqldelight:runtime:$sqlDelightVersion")
+//                implementation("org.jetbrains.kotlinx:kotlinx-datetime:$datetime")
             }
         }
         val commonTest by getting {
