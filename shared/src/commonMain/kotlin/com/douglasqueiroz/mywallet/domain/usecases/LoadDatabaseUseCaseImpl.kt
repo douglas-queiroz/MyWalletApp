@@ -26,10 +26,7 @@ internal class LoadDatabaseUseCaseImpl(
 
     private suspend fun downloadCurrencies() {
         currencyDao.clean()
-
-
         currencyApi.getCurrencies().map {
-
             val dateNow = dateUtil.getDateTimeNow()
 
             CurrencyDto(
