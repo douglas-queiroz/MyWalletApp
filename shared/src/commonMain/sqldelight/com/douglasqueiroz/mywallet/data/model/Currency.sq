@@ -1,22 +1,22 @@
 
-CREATE TABLE Currency (
+CREATE TABLE CurrencyEntity (
     id TEXT NOT NULL,
     name TEXT,
     symbol TEXT,
-    created_at TEXT NOT NULL,
-    updated_at TEXT NOT NULL
+    createdAt TEXT NOT NULL,
+    updatedAt TEXT NOT NULL
 );
 
 insert:
-INSERT INTO Currency(
-    id, name, symbol, created_at, updated_at
+INSERT INTO CurrencyEntity(
+    id, name, symbol, createdAt, updatedAt
 ) VALUES (
     ?, ?, ?, ?, ?
 );
 
 getAll:
-SELECT * FROM Currency;
+SELECT * FROM CurrencyEntity;
 
 
 deleteAll:
-DELETE FROM Currency;
+DELETE FROM CurrencyEntity;

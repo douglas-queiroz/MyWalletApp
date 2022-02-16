@@ -4,7 +4,8 @@ import com.douglasqueiroz.mywallet.DatabaseDriverFactory
 import com.douglasqueiroz.mywallet.domain.usecases.LoadDatabaseUseCase
 import com.douglasqueiroz.mywallet.domain.usecases.LoadDatabaseUseCaseImpl
 import com.douglasqueiroz.mywallet.repository.local.CurrencyDao
-import com.douglasqueiroz.mywallet.repository.remote.CurrencyApi
+import com.douglasqueiroz.mywallet.repository.local.FixedIncomeDao
+import com.douglasqueiroz.mywallet.repository.remote.MyWalletOldApi
 import com.douglasqueiroz.mywallet.util.DateUtil
 
 class DomainModule(
@@ -13,9 +14,10 @@ class DomainModule(
 
     fun getLoadDatabaseUseCase() : LoadDatabaseUseCase {
         return LoadDatabaseUseCaseImpl(
+            oldApi = MyWalletOldApi(),
+            dateUtil = DateUtil(),
             currencyDao = CurrencyDao(databaseDriverFactory),
-            currencyApi = CurrencyApi(),
-            dateUtil = DateUtil()
+            fixedIncomeDao = FixedIncomeDao(databaseDriverFactory)
         )
     }
 }

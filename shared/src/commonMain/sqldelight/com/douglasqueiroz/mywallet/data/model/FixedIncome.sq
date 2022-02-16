@@ -1,16 +1,19 @@
 
-CREATE TABLE FixedIncome (
-    id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+CREATE TABLE FixedIncomeEntity (
+    id TEXT NOT NULL,
     name TEXT,
-    currency_id INTEGER NOT NULL,
-    type TEXT,
-    created_at TEXT NOT NULL,
-    updated_at TEXT NOT NULL
+    currencyId TEXT NOT NULL,
+    type INTEGER,
+    createdAt TEXT NOT NULL,
+    updatedAt TEXT NOT NULL
 );
 
+deleteAll:
+DELETE FROM FixedIncomeEntity;
+
 insert:
-INSERT INTO FixedIncome(
-    id, name, currency_id, type, created_at, updated_at
+INSERT INTO FixedIncomeEntity(
+    id, name, currencyId, type, createdAt, updatedAt
 ) VALUES (
     ?, ?, ?, ?, ?, ?
 );

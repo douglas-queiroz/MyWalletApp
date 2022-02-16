@@ -28,8 +28,7 @@ class MainActivity : AppCompatActivity() {
         val mainScope = MainScope()
 
         mainScope.launch {
-            val list = test.execute()
-            Log.i("Test", list)
+            test.execute()
         }
     }
 }
