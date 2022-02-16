@@ -1,18 +1,20 @@
 
-CREATE TABLE Share (
-    id INTEGER NOT NULL PRIMARY KEY,
+CREATE TABLE ShareEntity (
+    id TEXT NOT NULL,
     name TEXT DEFAULT NULL,
     code TEXT DEFAULT NULL,
-    currency_id INTEGER NOT NULL,
-    type TEXT DEFAULT NULL,
-    is_gold INTEGER AS Boolean DEFAULT 0,
-    created_at TEXT NOT NULL,
-    updated_at TEXT NOT NULL
+    currencyId TEXT NOT NULL,
+    type INTEGER DEFAULT NULL,
+    createdAt TEXT NOT NULL,
+    updatedAt TEXT NOT NULL
 );
 
 insert:
-INSERT INTO Share(
-    id, name, code, currency_id, type, is_gold, created_at, updated_at
+INSERT INTO ShareEntity(
+    id, name, code, currencyId, type, createdAt, updatedAt
 ) VALUES (
-    ?, ?, ?, ?, ?, ?, ?, ?
+    ?, ?, ?, ?, ?, ?, ?
 );
+
+deleteAll:
+DELETE FROM ShareEntity;
