@@ -20,8 +20,8 @@ internal class CurrencyDao(
                 id = currencyEntity.id,
                 name = currencyEntity.name,
                 symbol = currencyEntity.symbol,
-                createdAt = currencyEntity.createdAt.toString(),
-                updatedAt = currencyEntity.updatedAt.toString()
+                createdAt = currencyEntity.createdAt,
+                updatedAt = currencyEntity.updatedAt
             )
         }
     }

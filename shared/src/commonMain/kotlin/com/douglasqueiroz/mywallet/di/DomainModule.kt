@@ -6,6 +6,8 @@ import com.douglasqueiroz.mywallet.domain.usecases.DownloadCurrenciesUseCase
 import com.douglasqueiroz.mywallet.domain.usecases.DownloadFixedIncomesUseCase
 import com.douglasqueiroz.mywallet.domain.usecases.DownloadTransactionsUseCase
 import com.douglasqueiroz.mywallet.domain.usecases.LoadDatabaseUseCaseImpl
+import com.douglasqueiroz.mywallet.repository.local.*
+import com.douglasqueiroz.mywallet.repository.local.CurrencyConversionDao
 import com.douglasqueiroz.mywallet.repository.local.CurrencyDao
 import com.douglasqueiroz.mywallet.repository.local.FixedIncomeDao
 import com.douglasqueiroz.mywallet.repository.local.ShareDao
@@ -40,12 +42,17 @@ class DomainModule(
             transactionDao = TransactionDao(databaseDriverFactory)
         )
 
+        val downloadCurrencyConversionUseCase = DownloadCurrencyConversionUseCase(
+            oldApi = oldApi,
+            currencyConversionDao = CurrencyConversionDao(databaseDriverFactory)
+        )
 
         return LoadDatabaseUseCaseImpl(
             downloadCurrenciesUseCase = downloadCurrenciesUseCase,
             downloadFixedIncomesUseCase = downloadFixedIncomesUseCase,
             downloadSharesUseCase = downloadSharesUseCase,
-            downloadTransactionsUseCase = downloadTransactionsUseCase
+            downloadTransactionsUseCase = downloadTransactionsUseCase,
+            downloadCurrencyConversionUseCase = downloadCurrencyConversionUseCase
         )
     }
 }

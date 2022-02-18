@@ -8,7 +8,8 @@ internal class LoadDatabaseUseCaseImpl(
     private val downloadCurrenciesUseCase: DownloadCurrenciesUseCase,
     private val downloadFixedIncomesUseCase: DownloadFixedIncomesUseCase,
     private val downloadSharesUseCase: DownloadSharesUseCase,
-    private val downloadTransactionsUseCase: DownloadTransactionsUseCase
+    private val downloadTransactionsUseCase: DownloadTransactionsUseCase,
+    private val downloadCurrencyConversionUseCase: DownloadCurrencyConversionUseCase
 ) : LoadDatabaseUseCase {
 
     override suspend fun execute() {
@@ -19,5 +20,6 @@ internal class LoadDatabaseUseCaseImpl(
             fixedIncomeIdMap = fixedIncomeIdMap,
             shareIdMap = shareIdMap
         )
+        downloadCurrencyConversionUseCase.execute(currencyIdMap)
     }
 }

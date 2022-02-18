@@ -1,16 +1,19 @@
 
-CREATE TABLE CurrencyConversion (
-    id integer NOT NULL PRIMARY KEY,
-    currency_from_id INTEGER NOT NULL,
-    currency_to_id INTEGER NOT NULL,
+CREATE TABLE CurrencyConversionEntity (
+    id TEXT NOT NULL,
+    currencyFromId TEXT NOT NULL,
+    currencyToId TEXT NOT NULL,
     symbol TEXT DEFAULT NULL,
-    created_at TEXT NOT NULL,
-    updated_at TEXT NOT NULL
+    createdAt TEXT NOT NULL,
+    updatedAt TEXT NOT NULL
 );
 
 insert:
-INSERT INTO CurrencyConversion(
-    id, currency_from_id, currency_to_id, symbol, created_at, updated_at
+INSERT INTO CurrencyConversionEntity(
+    id, currencyFromId, currencyToId, symbol, createdAt, updatedAt
 ) VALUES (
     ?, ?, ?, ?, ?, ?
 );
+
+deleteAll:
+DELETE FROM CurrencyConversionEntity;
