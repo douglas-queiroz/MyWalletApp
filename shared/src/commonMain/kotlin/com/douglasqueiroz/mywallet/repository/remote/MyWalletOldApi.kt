@@ -3,6 +3,7 @@ package com.douglasqueiroz.mywallet.repository.remote
 import com.douglasqueiroz.mywallet.repository.remote.response.CurrencyResponse
 import com.douglasqueiroz.mywallet.repository.remote.response.FixedIncomesResponse
 import com.douglasqueiroz.mywallet.repository.remote.response.ShareResponse
+import com.douglasqueiroz.mywallet.repository.remote.response.TransactionResponse
 import io.ktor.client.request.*
 import io.ktor.client.statement.*
 import kotlinx.serialization.decodeFromString
@@ -15,6 +16,7 @@ internal class MyWalletOldApi: BaseApi() {
         private const val CURRENCY_URL = "$BASE_URL/currencies"
         private const val FIXED_INCOMES_URL = "$BASE_URL/fixed_incomes"
         private const val SHARES_URL = "$BASE_URL/shares"
+        private const val TRANSACTIONS_URL = "$BASE_URL/transactions"
     }
 
     suspend fun getCurrencies() : List<CurrencyResponse> {
@@ -27,5 +29,9 @@ internal class MyWalletOldApi: BaseApi() {
 
     suspend fun getShares(): List<ShareResponse> {
         return httpClient.get(SHARES_URL)
+    }
+
+    suspend fun getTransactions(): List<TransactionResponse> {
+        return httpClient.get(TRANSACTIONS_URL)
     }
 }
