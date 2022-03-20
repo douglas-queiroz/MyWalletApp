@@ -10,12 +10,16 @@ internal class DownloadCurrencyConversionUseCase(
     private val currencyConversionDao: CurrencyConversionDao
 ) {
 
-    suspend fun execute(currencyIdMap: Map<Int, String>) {
+    suspend fun execute(currencyIdMap: Map<Int, String>): Map<Int, String> {
+        val idMap = mutableMapOf<Int, String>()
         currencyConversionDao.clean()
 
         oldApi.getCurrencyConversion().map {
+            val id = uuid4().toString()
+            idMap[it.id] = id
+
             CurrencyConversionEntity(
-                id = uuid4().toString(),
+                id = id,
                 currencyFromId = currencyIdMap[it.currencyFromId] ?: throw IllegalArgumentException("Currency ID ${it.currencyFromId} not found"),
                 currencyToId = currencyIdMap[it.currencyToId] ?: throw IllegalArgumentException("Currency ID ${it.currencyToId} not found"),
                 symbol = it.symbol,
@@ -25,5 +29,7 @@ internal class DownloadCurrencyConversionUseCase(
         }.forEach {
             currencyConversionDao.insert(it)
         }
+
+        return idMap
     }
 }

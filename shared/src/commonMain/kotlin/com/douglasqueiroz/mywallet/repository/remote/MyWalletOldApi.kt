@@ -13,6 +13,7 @@ internal class MyWalletOldApi: BaseApi() {
         private const val TRANSACTIONS_URL = "$BASE_URL/transactions"
         private const val CURRENCY_CONVERSION_URL = "$BASE_URL/currency_conversions"
         private const val QUOTE_URL = "$BASE_URL/quotes"
+        private const val CURRENCY_QUOTE_URL = "$BASE_URL/currency_quotations"
     }
 
     suspend fun getCurrencies() : List<CurrencyResponse> {
@@ -37,5 +38,9 @@ internal class MyWalletOldApi: BaseApi() {
 
     suspend fun getQuotes(): List<QuoteResponse> {
         return httpClient.get(QUOTE_URL)
+    }
+
+    suspend fun getCurrencyQuotation(): List<CurrencyQuotationResponse> {
+        return httpClient.get(CURRENCY_QUOTE_URL)
     }
 }
