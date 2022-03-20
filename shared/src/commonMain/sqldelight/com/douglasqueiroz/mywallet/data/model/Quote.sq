@@ -1,16 +1,19 @@
 
-CREATE TABLE Quote (
-    id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+CREATE TABLE QuoteEntity (
+    id TEXT NOT NULL,
     date TEXT,
     price REAL AS Float,
-    share_id INTEGER NOT NULL,
-    created_at TEXT NOT NULL,
-    updated_at TEXT NOT NULL
+    shareId TEXT NOT NULL,
+    createdAt TEXT NOT NULL,
+    updatedAt TEXT NOT NULL
 );
 
 insert:
-INSERT INTO Quote(
-    id, date, price, share_id, created_at, updated_at
+INSERT INTO QuoteEntity(
+    id, date, price, shareId, createdAt, updatedAt
 ) VALUES (
     ?, ?, ?, ?, ?, ?
 );
+
+deleteAll:
+DELETE FROM QuoteEntity;

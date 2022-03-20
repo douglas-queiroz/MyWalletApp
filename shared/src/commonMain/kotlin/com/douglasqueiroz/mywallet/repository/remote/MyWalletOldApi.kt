@@ -6,12 +6,13 @@ import io.ktor.client.request.*
 internal class MyWalletOldApi: BaseApi() {
 
     companion object {
-        private const val BASE_URL = "http://192.168.1.100:3001"
+        private const val BASE_URL = "http://192.168.1.105:3001"
         private const val CURRENCY_URL = "$BASE_URL/currencies"
         private const val FIXED_INCOMES_URL = "$BASE_URL/fixed_incomes"
         private const val SHARES_URL = "$BASE_URL/shares"
         private const val TRANSACTIONS_URL = "$BASE_URL/transactions"
         private const val CURRENCY_CONVERSION_URL = "$BASE_URL/currency_conversions"
+        private const val QUOTE_URL = "$BASE_URL/quotes"
     }
 
     suspend fun getCurrencies() : List<CurrencyResponse> {
@@ -32,5 +33,9 @@ internal class MyWalletOldApi: BaseApi() {
 
     suspend fun getCurrencyConversion(): List<CurrencyConversionResponse> {
         return httpClient.get(CURRENCY_CONVERSION_URL)
+    }
+
+    suspend fun getQuotes(): List<QuoteResponse> {
+        return httpClient.get(QUOTE_URL)
     }
 }

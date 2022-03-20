@@ -47,12 +47,18 @@ class DomainModule(
             currencyConversionDao = CurrencyConversionDao(databaseDriverFactory)
         )
 
+        val downloadQuotesUseCase = DownloadQuotesUseCase(
+            oldApi = oldApi,
+            quoteDao = QuoteDao(databaseDriverFactory)
+        )
+
         return LoadDatabaseUseCaseImpl(
             downloadCurrenciesUseCase = downloadCurrenciesUseCase,
             downloadFixedIncomesUseCase = downloadFixedIncomesUseCase,
             downloadSharesUseCase = downloadSharesUseCase,
             downloadTransactionsUseCase = downloadTransactionsUseCase,
-            downloadCurrencyConversionUseCase = downloadCurrencyConversionUseCase
+            downloadCurrencyConversionUseCase = downloadCurrencyConversionUseCase,
+            downloadQuotesUseCase = downloadQuotesUseCase
         )
     }
 }
