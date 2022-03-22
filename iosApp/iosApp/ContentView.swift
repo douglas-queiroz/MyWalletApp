@@ -8,7 +8,7 @@ struct ContentView: View {
 
 	var body: some View {
 		Text(greet)
-        Button("Click here") {
+        Button("Download Database") {
             let databaseFactory = DatabaseDriverFactory()
             
             DomainModule(databaseDriverFactory: databaseFactory).getLoadDatabaseUseCase().execute { result, error in
@@ -21,8 +21,27 @@ struct ContentView: View {
                     print(error.localizedDescription)
                 }
             }
-            
-            
+        }
+        
+        Button("Load Info") {
+            let databaseFactory = DatabaseDriverFactory()
+            let calculateReportUseCase = DomainModule(databaseDriverFactory: databaseFactory).getCalculateOverallReportUseCase()
+            calculateReportUseCase.execute { result, error in
+                if let result = result {
+                    print(result)
+                    
+                    var a = 0.0
+                    result.forEach { reportDao in
+                        a += reportDao.total
+                    }
+                    
+                    print(a)
+                }
+                
+                if let error = error {
+                    print(error.localizedDescription)
+                }
+            }
         }
 	}
 }

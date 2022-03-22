@@ -23,12 +23,18 @@ class MainActivity : AppCompatActivity() {
         val tv: TextView = findViewById(R.id.text_view)
         tv.text = greet()
 
-        val test = DomainModule(DatabaseDriverFactory(this)).getLoadDatabaseUseCase()
+        val download = DomainModule(DatabaseDriverFactory(this)).getLoadDatabaseUseCase()
+        val calculate = DomainModule(DatabaseDriverFactory(this)).getCalculateOverallReportUseCase()
 
         val mainScope = MainScope()
 
         mainScope.launch {
-            test.execute()
+//            download.execute()
+            val result = calculate.execute()
+
+            result.forEach {
+                Log.i("Douglas", "${it.name} | ${it.percentage} | ${it.total} ")
+            }
         }
     }
 }

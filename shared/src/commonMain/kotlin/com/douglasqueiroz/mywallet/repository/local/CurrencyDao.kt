@@ -26,7 +26,11 @@ internal class CurrencyDao(
         }
     }
 
-    suspend fun getAll(): List<CurrencyEntity>  = withContext(Default) {
+    suspend fun getAll(): List<CurrencyEntity> = withContext(Default) {
         return@withContext database.currencyQueries.getAll().executeAsList()
+    }
+
+    suspend fun getCurrencyRate(currencyIdTo: String): Float = withContext(Default) {
+        return@withContext database.currencyQueries.currenncyRate(currencyIdTo).executeAsOneOrNull()?.price ?: 1.0f
     }
 }

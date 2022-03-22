@@ -17,6 +17,21 @@ INSERT INTO CurrencyEntity(
 getAll:
 SELECT * FROM CurrencyEntity;
 
-
 deleteAll:
 DELETE FROM CurrencyEntity;
+
+currenncyRate:
+SELECT
+	cq.price
+FROM
+	CurrencyEntity c
+INNER JOIN
+	CurrencyConversionEntity cc ON c.id = cc.currencyFromId
+INNER JOIN
+	CurrencyQuotationEntity cq ON cc.id = cq.currencyConversionId
+WHERE
+	c.name = 'Euro'
+AND
+	cc.currencyToId = ?
+ORDER BY cq.date DESC
+LIMIT 1;

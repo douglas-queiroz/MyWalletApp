@@ -57,4 +57,13 @@ class DomainModule(
             downloadCurrencyQuotationUseCase = downloadCurrencyQuotationUseCase
         )
     }
+
+    fun getCalculateOverallReportUseCase(): CalculateOverallReportUseCase {
+        return CalculateOverallReportUseCaseImpl(
+            fixedIncomeDao = FixedIncomeDao(databaseDriverFactory),
+            shareDao = ShareDao(databaseDriverFactory),
+            currencyDao = CurrencyDao(databaseDriverFactory),
+            transactionDao = TransactionDao(databaseDriverFactory)
+        )
+    }
 }

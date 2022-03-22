@@ -18,3 +18,13 @@ INSERT INTO ShareEntity(
 
 deleteAll:
 DELETE FROM ShareEntity;
+
+shareReportInfo:
+SELECT
+	s.*,
+	(SELECT SUM(quantity) FROM FinancialTransactionEntity WHERE transactionableId = s.id ) AS quantity,
+	(SELECT price FROM QuoteEntity WHERE shareId = s.id ORDER BY  date DESC LIMIT 1) AS price
+FROM
+	ShareEntity s
+WHERE
+	type = ?;

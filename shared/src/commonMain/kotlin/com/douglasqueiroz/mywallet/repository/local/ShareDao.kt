@@ -2,14 +2,16 @@ package com.douglasqueiroz.mywallet.repository.local
 
 import com.douglasqueiroz.mywallet.DatabaseDriverFactory
 import com.douglasqueiroz.mywallet.data.model.ShareEntity
-import kotlinx.coroutines.Dispatchers
+import com.douglasqueiroz.mywallet.data.model.ShareReportInfo
+import com.douglasqueiroz.mywallet.domain.enum.ShareType
+import kotlinx.coroutines.Dispatchers.Default
 import kotlinx.coroutines.withContext
 
 internal class ShareDao(databaseDriverFactory: DatabaseDriverFactory): BaseDao(databaseDriverFactory) {
 
-    suspend fun clean() = withContext(Dispatchers.Default) { database.shareQueries.deleteAll() }
+    suspend fun clean() = withContext(Default) { database.shareQueries.deleteAll() }
 
-    suspend fun insert(entity: ShareEntity) = withContext(Dispatchers.Default) {
+    suspend fun insert(entity: ShareEntity) = withContext(Default) {
         database.transaction {
             database.shareQueries.insert(
                 id = entity.id,
@@ -21,5 +23,9 @@ internal class ShareDao(databaseDriverFactory: DatabaseDriverFactory): BaseDao(d
                 updatedAt = entity.updatedAt
             )
         }
+    }
+
+    suspend fun getReportInfoByType(type: ShareType): List<ShareReportInfo> = withContext(Default) {
+        return@withContext database.shareQueries.shareReportInfo(type.ordinal.toLong()).executeAsList()
     }
 }

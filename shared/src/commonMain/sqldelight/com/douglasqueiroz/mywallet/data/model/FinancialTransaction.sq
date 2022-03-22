@@ -20,3 +20,6 @@ INSERT INTO FinancialTransactionEntity(
 
 deleteAll:
 DELETE FROM FinancialTransactionEntity;
+
+getLastTransactionByTransactionableId:
+SELECT * FROM FinancialTransactionEntity WHERE transactionableId = ? ORDER BY date DESC LIMIT 1;

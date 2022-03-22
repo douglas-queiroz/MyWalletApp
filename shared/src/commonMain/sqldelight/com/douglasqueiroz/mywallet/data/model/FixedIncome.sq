@@ -17,3 +17,12 @@ INSERT INTO FixedIncomeEntity(
 ) VALUES (
     ?, ?, ?, ?, ?, ?
 );
+
+fixedIncomeReportInfo:
+SELECT
+	s.*,
+	(SELECT SUM(total) FROM FinancialTransactionEntity WHERE transactionableId = s.id) AS price
+FROM
+	FixedIncomeEntity s
+WHERE
+	type = ?;
