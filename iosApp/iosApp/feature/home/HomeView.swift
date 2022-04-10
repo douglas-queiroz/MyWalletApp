@@ -14,13 +14,26 @@ struct HomeView: View {
     
     
     var body: some View {
-        VStack {
-            Button("Download Database") {
-                viewModel.loadDatabase()
+        
+        
+        ZStack {
+            VStack {
+                List(viewModel.list) { HomeListItem(item: $0) }
+                
+                HStack {
+                    MWButton(
+                        text: "Database",
+                        onClick: { viewModel.loadDatabase() }
+                    )
+                    MWButton(
+                        text: "Quotation",
+                        onClick: { viewModel.collectQuotations() }
+                    )
+                }
             }
             
-            List(viewModel.list) {
-                HomeListItem(item: $0)
+            if viewModel.showLoading {
+                MWLoading()
             }
         }
     }

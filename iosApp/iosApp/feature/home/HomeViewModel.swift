@@ -20,18 +20,24 @@ struct ReportItem: Identifiable {
 class HomeViewModel: ObservableObject {
     
     @Published var list = [ReportItem(id: 0,name: "TOTAL", total: "€ 10", percentage: "")]
+    @Published var showLoading = false
     
     private let loadDatabaseUseCase: LoadDatabaseUseCase
     private let calculateOverallReportUseCase: CalculateOverallReportUseCase
+    private let collectQuotationUseCase: CollectQuotationsUseCase
     
     init() {
         let databaseFactory = DatabaseDriverFactory()
-        loadDatabaseUseCase = DomainModule(databaseDriverFactory: databaseFactory).getLoadDatabaseUseCase()
-        calculateOverallReportUseCase = DomainModule(databaseDriverFactory: databaseFactory).getCalculateOverallReportUseCase()
+        let doaminModule = DomainModule(databaseDriverFactory: databaseFactory)
+        loadDatabaseUseCase = doaminModule.getLoadDatabaseUseCase()
+        calculateOverallReportUseCase = doaminModule.getCalculateOverallReportUseCase()
+        collectQuotationUseCase = doaminModule.getCollectionQuotationsUseCase()
         getReport()
     }
     
     private func getReport() {
+        showLoading = true
+        
         calculateOverallReportUseCase.execute { result, error in
             
             weak var selfWeak = self
@@ -61,10 +67,14 @@ class HomeViewModel: ObservableObject {
             if let error = error {
                 print(error.localizedDescription)
             }
+            
+            self.showLoading = false
         }
     }
     
     func loadDatabase() {
+        showLoading = true
+        
         loadDatabaseUseCase.execute { result, error in
             if result != nil {
                 weak var selfWeak = self
@@ -74,6 +84,25 @@ class HomeViewModel: ObservableObject {
             if let error = error {
                 print(error.localizedDescription)
             }
+            
+            self.showLoading = false
+        }
+    }
+    
+    func collectQuotations() {
+        self.showLoading = true
+        
+        collectQuotationUseCase.execute { result, error in
+            
+            print("Quotation Finished")
+            
+            if let error = error {
+                print(error.localizedDescription)
+            } else {
+                self.getReport()
+            }
+            
+            self.showLoading = false
         }
     }
     

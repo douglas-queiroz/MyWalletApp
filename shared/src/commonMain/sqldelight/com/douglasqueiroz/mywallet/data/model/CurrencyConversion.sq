@@ -17,3 +17,6 @@ INSERT INTO CurrencyConversionEntity(
 
 deleteAll:
 DELETE FROM CurrencyConversionEntity;
+
+getAll:
+SELECT * FROM CurrencyConversionEntity;

@@ -25,6 +25,7 @@ class MainActivity : AppCompatActivity() {
 
         val download = DomainModule(DatabaseDriverFactory(this)).getLoadDatabaseUseCase()
         val calculate = DomainModule(DatabaseDriverFactory(this)).getCalculateOverallReportUseCase()
+        val collectQuotationsUseCase = DomainModule(DatabaseDriverFactory(this)).getCollectionQuotationsUseCase()
 
         val mainScope = MainScope()
 
@@ -32,9 +33,11 @@ class MainActivity : AppCompatActivity() {
 //            download.execute()
             val result = calculate.execute()
 
-            result.forEach {
-                Log.i("Douglas", "${it.name} | ${it.percentage} | ${it.total} ")
-            }
+//            result.forEach {
+//                Log.i("Douglas", "${it.name} | ${it.percentage} | ${it.total} ")
+//            }
+
+            collectQuotationsUseCase.execute()
         }
     }
 }

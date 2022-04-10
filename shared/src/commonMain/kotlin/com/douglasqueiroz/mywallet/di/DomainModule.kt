@@ -4,6 +4,8 @@ import com.douglasqueiroz.mywallet.DatabaseDriverFactory
 import com.douglasqueiroz.mywallet.domain.usecases.*
 import com.douglasqueiroz.mywallet.repository.local.*
 import com.douglasqueiroz.mywallet.repository.remote.MyWalletOldApi
+import com.douglasqueiroz.mywallet.repository.remote.QuotationAPI
+import com.douglasqueiroz.mywallet.util.DateUtil
 
 class DomainModule(
     private val databaseDriverFactory: DatabaseDriverFactory
@@ -64,6 +66,17 @@ class DomainModule(
             shareDao = ShareDao(databaseDriverFactory),
             currencyDao = CurrencyDao(databaseDriverFactory),
             transactionDao = TransactionDao(databaseDriverFactory)
+        )
+    }
+
+    fun getCollectionQuotationsUseCase(): CollectQuotationsUseCase {
+        return CollectQuotationsUseCaseImpl(
+            shareDao = ShareDao(databaseDriverFactory),
+            currencyConversionDao = CurrencyConversionDao(databaseDriverFactory),
+            quotationAPI = QuotationAPI(),
+            quoteDao = QuoteDao(databaseDriverFactory),
+            currencyQuotationDao = CurrencyQuotationDao(databaseDriverFactory),
+            dateUtil = DateUtil()
         )
     }
 }

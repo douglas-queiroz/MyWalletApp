@@ -28,4 +28,8 @@ internal class ShareDao(databaseDriverFactory: DatabaseDriverFactory): BaseDao(d
     suspend fun getReportInfoByType(type: ShareType): List<ShareReportInfo> = withContext(Default) {
         return@withContext database.shareQueries.shareReportInfo(type.ordinal.toLong()).executeAsList()
     }
+
+    suspend fun getAll(): List<ShareEntity> = withContext(Default) {
+        return@withContext database.shareQueries.getAll().executeAsList()
+    }
 }

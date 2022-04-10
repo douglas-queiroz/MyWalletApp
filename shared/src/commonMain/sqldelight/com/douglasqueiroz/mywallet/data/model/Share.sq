@@ -28,3 +28,6 @@ FROM
 	ShareEntity s
 WHERE
 	type = ?;
+
+getAll:
+SELECT * FROM ShareEntity;

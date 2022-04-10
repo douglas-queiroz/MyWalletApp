@@ -1,9 +1,15 @@
+import com.codingfeline.buildkonfig.compiler.FieldSpec.Type.STRING
+import java.io.File
+import java.io.FileInputStream
+import java.util.*
+
 plugins {
     kotlin("multiplatform")
     kotlin("native.cocoapods")
     kotlin("plugin.serialization")
     id("com.android.library")
     id("com.squareup.sqldelight")
+    id("com.codingfeline.buildkonfig")
 }
 
 val coroutinesVersion = "1.5.0-native-mt"
@@ -13,6 +19,13 @@ val datetime = "0.3.2"
 val uuidVersion = "0.4.0"
 
 version = "1.0"
+
+//val secrets: String = gradleLocalProperties(rootDir).getProperty("secrets")
+val secrets = Properties().apply {
+    load(FileInputStream(File(rootProject.rootDir, "secrets.properties")))
+}
+
+println("Property:" + secrets.getProperty("OLD_API_BASE_URL"))
 
 kotlin {
     android()
@@ -29,6 +42,7 @@ kotlin {
         podfile = project.file("../iosApp/Podfile")
         framework {
             baseName = "shared"
+            isStatic = false
         }
     }
     
@@ -98,5 +112,14 @@ android {
 sqldelight {
     database("AppDatabase") {
         packageName = "com.douglasqueiroz.mywallet"
+    }
+}
+
+buildkonfig {
+    packageName = "com.douglasqueiroz.mywallet"
+
+    defaultConfigs {
+        buildConfigField(STRING, "OLD_API_BASE_URL", secrets.getProperty("OLD_API_BASE_URL"))
+        buildConfigField(STRING, "QUOTE_KEY", secrets.getProperty("QUOTE_KEY"))
     }
 }
