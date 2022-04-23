@@ -17,10 +17,10 @@ struct BaseListView: View {
             VStack {
                 List(viewModel.list) { BaseList(item: $0) }
             }
-        }
+        }.navigationBarTitle(Text("Stocks"), displayMode: .inline)
     }
 }
-
+ 
 struct BaseList: View {
     
     let item: BaseListItem

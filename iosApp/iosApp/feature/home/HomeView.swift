@@ -15,26 +15,31 @@ struct HomeView: View {
     
     var body: some View {
         
-        
-        ZStack {
-            VStack {
-                List(viewModel.list) { HomeListItem(item: $0) }
-                
-                HStack {
-                    MWButton(
-                        text: "Database",
-                        onClick: { viewModel.loadDatabase() }
-                    )
-                    MWButton(
-                        text: "Quotation",
-                        onClick: { viewModel.collectQuotations() }
-                    )
+        NavigationView {
+            ZStack {
+                VStack {
+                    List(viewModel.list) { type in
+                        NavigationLink(destination: BaseListView(viewModel: StockViewModel())) {
+                            HomeListItem(item: type)
+                        }
+                    }
+                    
+                    HStack {
+                        MWButton(
+                            text: "Database",
+                            onClick: { viewModel.loadDatabase() }
+                        )
+                        MWButton(
+                            text: "Quotation",
+                            onClick: { viewModel.collectQuotations() }
+                        )
+                    }
                 }
-            }
-            
-            if viewModel.showLoading {
-                MWLoading()
-            }
+                
+                if viewModel.showLoading {
+                    MWLoading()
+                }
+            }.navigationTitle("Home")
         }
     }
 }
