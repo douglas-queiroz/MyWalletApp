@@ -53,14 +53,14 @@ class HomeViewModel: ObservableObject {
                 sortedResult.enumerated().forEach { i, reportDao in
                     total += reportDao.total
                     
-                    let itemTotal = self.df2so(reportDao.total)
-                    let itemPerc = self.df2so(reportDao.percentage)
+                    let itemTotal = reportDao.total.formatTwoDigits()
+                    let itemPerc = reportDao.percentage.formatTwoDigits()
                     let item = ReportItem(id: i, name: reportDao.name, total: "€ \(itemTotal)", percentage: "(\(itemPerc)%)")
                     selfWeak?.list.append(item)
                 }
             }
             
-            let totalStr = self.df2so(total)
+            let totalStr = total.formatTwoDigits()
             let totalItem = ReportItem(id: result?.count ?? 0,name: "TOTAL", total: "€ \(totalStr)", percentage: "")
             selfWeak?.list.append(totalItem)
             
@@ -104,16 +104,5 @@ class HomeViewModel: ObservableObject {
             
             self.showLoading = false
         }
-    }
-    
-    private func df2so(_ price: Double) -> String{
-        let numberFormatter = NumberFormatter()
-        numberFormatter.groupingSeparator = ","
-        numberFormatter.groupingSize = 3
-        numberFormatter.usesGroupingSeparator = true
-        numberFormatter.decimalSeparator = "."
-        numberFormatter.numberStyle = .decimal
-        numberFormatter.maximumFractionDigits = 2
-        return numberFormatter.string(from: price as NSNumber)!
     }
 }

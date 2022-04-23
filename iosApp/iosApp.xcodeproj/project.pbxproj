@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -13,9 +13,14 @@
 		7555FF83242A565900829871 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7555FF82242A565900829871 /* ContentView.swift */; };
 		763AC36BC1C0106B9B1D08FA /* Pods_iosApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D72B35BF10ED4D176A203003 /* Pods_iosApp.framework */; };
 		CB402EAB27FF7CBA00308FC0 /* MWButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB402EAA27FF7CBA00308FC0 /* MWButton.swift */; };
+		CB560CCF2811F36500BA6DC1 /* StockViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB560CCE2811F36500BA6DC1 /* StockViewModel.swift */; };
 		CB76C6CA27E91D5C003455DC /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB76C6C927E91D5C003455DC /* HomeViewModel.swift */; };
 		CB76C6CC27E9223E003455DC /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB76C6CB27E9223E003455DC /* HomeView.swift */; };
 		CBC6DA1728020739003F6B44 /* MWLoading.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBC6DA1628020739003F6B44 /* MWLoading.swift */; };
+		CBF4164C2805FAD0008B97C2 /* BaseListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBF4164B2805FAD0008B97C2 /* BaseListView.swift */; };
+		CBF4164E28060DD3008B97C2 /* BaseListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBF4164D28060DD3008B97C2 /* BaseListViewModel.swift */; };
+		CBF4165028060E2F008B97C2 /* BaseListItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBF4164F28060E2F008B97C2 /* BaseListItem.swift */; };
+		CBFCEC9C2814017D003BD24D /* Double.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBFCEC9B2814017D003BD24D /* Double.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,9 +33,14 @@
 		7555FF8C242A565B00829871 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A2BA4AC97F82982A4389A6D7 /* Pods-iosApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iosApp.debug.xcconfig"; path = "Target Support Files/Pods-iosApp/Pods-iosApp.debug.xcconfig"; sourceTree = "<group>"; };
 		CB402EAA27FF7CBA00308FC0 /* MWButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MWButton.swift; sourceTree = "<group>"; };
+		CB560CCE2811F36500BA6DC1 /* StockViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockViewModel.swift; sourceTree = "<group>"; };
 		CB76C6C927E91D5C003455DC /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		CB76C6CB27E9223E003455DC /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		CBC6DA1628020739003F6B44 /* MWLoading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MWLoading.swift; sourceTree = "<group>"; };
+		CBF4164B2805FAD0008B97C2 /* BaseListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseListView.swift; sourceTree = "<group>"; };
+		CBF4164D28060DD3008B97C2 /* BaseListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseListViewModel.swift; sourceTree = "<group>"; };
+		CBF4164F28060E2F008B97C2 /* BaseListItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseListItem.swift; sourceTree = "<group>"; };
+		CBFCEC9B2814017D003BD24D /* Double.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Double.swift; sourceTree = "<group>"; };
 		D72B35BF10ED4D176A203003 /* Pods_iosApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_iosApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -75,6 +85,7 @@
 		7555FF7D242A565900829871 /* iosApp */ = {
 			isa = PBXGroup;
 			children = (
+				CBFCEC9A28140169003BD24D /* extensions */,
 				CB402EA927FF7C9000308FC0 /* ui */,
 				CB76C6C727E91D3F003455DC /* feature */,
 				058557BA273AAA24004C7B11 /* Assets.xcassets */,
@@ -112,10 +123,20 @@
 			path = ui;
 			sourceTree = "<group>";
 		};
+		CB560CCD2811F31400BA6DC1 /* stocks */ = {
+			isa = PBXGroup;
+			children = (
+				CB560CCE2811F36500BA6DC1 /* StockViewModel.swift */,
+			);
+			path = stocks;
+			sourceTree = "<group>";
+		};
 		CB76C6C727E91D3F003455DC /* feature */ = {
 			isa = PBXGroup;
 			children = (
+				CBF4164A2805FABF008B97C2 /* base */,
 				CB76C6C827E91D48003455DC /* home */,
+				CB560CCD2811F31400BA6DC1 /* stocks */,
 			);
 			path = feature;
 			sourceTree = "<group>";
@@ -127,6 +148,24 @@
 				CB76C6CB27E9223E003455DC /* HomeView.swift */,
 			);
 			path = home;
+			sourceTree = "<group>";
+		};
+		CBF4164A2805FABF008B97C2 /* base */ = {
+			isa = PBXGroup;
+			children = (
+				CBF4164B2805FAD0008B97C2 /* BaseListView.swift */,
+				CBF4164D28060DD3008B97C2 /* BaseListViewModel.swift */,
+				CBF4164F28060E2F008B97C2 /* BaseListItem.swift */,
+			);
+			path = base;
+			sourceTree = "<group>";
+		};
+		CBFCEC9A28140169003BD24D /* extensions */ = {
+			isa = PBXGroup;
+			children = (
+				CBFCEC9B2814017D003BD24D /* Double.swift */,
+			);
+			path = extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -243,11 +282,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CBF4164C2805FAD0008B97C2 /* BaseListView.swift in Sources */,
+				CB560CCF2811F36500BA6DC1 /* StockViewModel.swift in Sources */,
 				CBC6DA1728020739003F6B44 /* MWLoading.swift in Sources */,
 				2152FB042600AC8F00CF470E /* iOSApp.swift in Sources */,
 				CB76C6CC27E9223E003455DC /* HomeView.swift in Sources */,
 				CB402EAB27FF7CBA00308FC0 /* MWButton.swift in Sources */,
+				CBF4164E28060DD3008B97C2 /* BaseListViewModel.swift in Sources */,
 				CB76C6CA27E91D5C003455DC /* HomeViewModel.swift in Sources */,
+				CBF4165028060E2F008B97C2 /* BaseListItem.swift in Sources */,
+				CBFCEC9C2814017D003BD24D /* Double.swift in Sources */,
 				7555FF83242A565900829871 /* ContentView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

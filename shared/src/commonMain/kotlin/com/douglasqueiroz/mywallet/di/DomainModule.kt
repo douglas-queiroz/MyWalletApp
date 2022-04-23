@@ -79,4 +79,11 @@ class DomainModule(
             dateUtil = DateUtil()
         )
     }
+
+    fun getFetchShareByTypeUseCase(): FetchShareByTypeUseCase {
+        return FetchShareByTypeUseCaseImpl(
+            shareDao = ShareDao(databaseDriverFactory),
+            transactionDao = TransactionDao((databaseDriverFactory))
+        )
+    }
 }
