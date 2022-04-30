@@ -31,7 +31,7 @@ class MainActivity : AppCompatActivity() {
 
         mainScope.launch {
 //            download.execute()
-            val result = calculate.execute()
+//            val result = calculate.execute()
 
 //            result.forEach {
 //                Log.i("Douglas", "${it.name} | ${it.percentage} | ${it.total} ")

@@ -8,6 +8,15 @@
 
 import Foundation
 import shared
+import SwiftUI
+
+
+
+enum Router: Hashable {
+    case ListView
+    case Details
+}
+
 
 struct ReportItem: Identifiable {
     var id: Int
@@ -15,12 +24,18 @@ struct ReportItem: Identifiable {
     let name: String
     let total: String
     let percentage: String
+    let reportDto: OverallReportDto
 }
 
 class HomeViewModel: ObservableObject {
     
-    @Published var list = [ReportItem(id: 0,name: "TOTAL", total: "€ 10", percentage: "")]
+    @Published var list = [ReportItem]()
     @Published var showLoading = false
+    @Published var total = "€ 0.00"
+    @Published var navigateToList: Router? = nil
+    
+    
+    @Published var baseListviewModel: BaseListViewModel?
     
     private let loadDatabaseUseCase: LoadDatabaseUseCase
     private let calculateOverallReportUseCase: CalculateOverallReportUseCase
@@ -38,10 +53,9 @@ class HomeViewModel: ObservableObject {
     private func getReport() {
         showLoading = true
         
-        calculateOverallReportUseCase.execute { result, error in
+        calculateOverallReportUseCase.execute { [weak self] result, error in
             
-            weak var selfWeak = self
-            selfWeak?.list = [ReportItem]()
+            self?.list = [ReportItem]()
             var total = 0.0
             
             if let result = result {
@@ -55,20 +69,20 @@ class HomeViewModel: ObservableObject {
                     
                     let itemTotal = reportDao.total.formatTwoDigits()
                     let itemPerc = reportDao.percentage.formatTwoDigits()
-                    let item = ReportItem(id: i, name: reportDao.name, total: "€ \(itemTotal)", percentage: "(\(itemPerc)%)")
-                    selfWeak?.list.append(item)
+                    let item = ReportItem(id: i, name: reportDao.name, total: "€ \(itemTotal)", percentage: "(\(itemPerc)%)", reportDto: reportDao)
+                    self?.list.append(item)
                 }
             }
             
             let totalStr = total.formatTwoDigits()
-            let totalItem = ReportItem(id: result?.count ?? 0,name: "TOTAL", total: "€ \(totalStr)", percentage: "")
-            selfWeak?.list.append(totalItem)
+            self?.total = "€ \(totalStr)"
+            
             
             if let error = error {
                 print(error.localizedDescription)
             }
             
-            self.showLoading = false
+            self?.showLoading = false
         }
     }
     
@@ -103,6 +117,18 @@ class HomeViewModel: ObservableObject {
             }
             
             self.showLoading = false
+        }
+    }
+    
+    func onItemSelected(item: ReportItem) {
+        if let shareType = item.reportDto.shareType {
+            navigateToList = .ListView
+            baseListviewModel = ShareViewModel(type: shareType)
+        }
+        
+        if let fixedIncome = item.reportDto.fixedIncomeType {
+            navigateToList = .ListView
+            baseListviewModel = FixedIncomeList(type: fixedIncome)
         }
     }
 }

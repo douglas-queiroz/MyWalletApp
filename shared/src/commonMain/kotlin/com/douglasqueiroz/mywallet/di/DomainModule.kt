@@ -86,4 +86,10 @@ class DomainModule(
             transactionDao = TransactionDao((databaseDriverFactory))
         )
     }
+
+    fun getFetchFixedIncomeByTypeUseCase(): FetchFixedIncomeByTypeUseCase {
+        return FetchFixedIncomeByTypeUseCaseImpl(
+            fixedIncomeDao = FixedIncomeDao(databaseDriverFactory)
+        )
+    }
 }

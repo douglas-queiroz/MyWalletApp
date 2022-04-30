@@ -1,6 +1,7 @@
 package com.douglasqueiroz.mywallet.repository.local
 
 import com.douglasqueiroz.mywallet.DatabaseDriverFactory
+import com.douglasqueiroz.mywallet.data.model.FixedIncomeActive
 import com.douglasqueiroz.mywallet.data.model.FixedIncomeEntity
 import com.douglasqueiroz.mywallet.data.model.FixedIncomeReportInfo
 import com.douglasqueiroz.mywallet.domain.enum.FixedIncomeType
@@ -26,5 +27,9 @@ internal class FixedIncomeDao(databaseDriverFactory: DatabaseDriverFactory): Bas
 
     suspend fun getReportInfoByType(type: FixedIncomeType): List<FixedIncomeReportInfo> = withContext(Default) {
         return@withContext database.fixedIncomeQueries.fixedIncomeReportInfo(type.ordinal.toLong()).executeAsList()
+    }
+
+    suspend fun getActive(type: Long): List<FixedIncomeActive> = withContext(Default) {
+        return@withContext database.fixedIncomeQueries.fixedIncomeActive(type).executeAsList()
     }
 }

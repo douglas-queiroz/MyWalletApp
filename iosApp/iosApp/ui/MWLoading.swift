@@ -12,10 +12,12 @@ struct MWLoading: View {
     var body: some View {
         ZStack {
             ProgressView()
+                .colorInvert()
+                .brightness(1)
                 .frame(width: 70, height: 70)
                 .scaleEffect(2)
                 
-        }.background(Color.white)
+        }.background(Color.gray)
             .cornerRadius(16)
     }
 }
@@ -23,5 +25,6 @@ struct MWLoading: View {
 struct MWLoading_Previews: PreviewProvider {
     static var previews: some View {
         MWLoading()
+            .preferredColorScheme(.dark)
     }
 }

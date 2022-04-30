@@ -26,3 +26,16 @@ FROM
 	FixedIncomeEntity s
 WHERE
 	type = ?;
+
+fixedIncomeActive:
+SELECT
+	s.id,
+	s.name,
+	c.symbol,
+	(SELECT SUM(total) FROM FinancialTransactionEntity WHERE transactionableId = s.id) AS total
+FROM
+	FixedIncomeEntity s
+INNER JOIN
+	CurrencyEntity c ON c.id = s.currencyId
+WHERE
+	type = ?;

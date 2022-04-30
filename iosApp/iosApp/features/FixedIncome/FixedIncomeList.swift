@@ -1,23 +1,27 @@
 //
-//  StockViewModel.swift
+//  FixedIncomeList.swift
 //  iosApp
 //
-//  Created by Douglas Queiroz on 21/04/22.
+//  Created by Douglas Queiroz on 30/04/22.
 //  Copyright © 2022 orgName. All rights reserved.
 //
 
 import Foundation
+
 import shared
 
-class StockViewModel: BaseListViewModel {
+class FixedIncomeList: BaseListViewModel {
     
-    private let fetchActiveUseCase: FetchShareByTypeUseCase
+    private let type: FixedIncomeType
+    private let fetchFixedIncomeByTypeUseCase: FetchFixedIncomeByTypeUseCase
     
-    override init() {
+    init(type: FixedIncomeType) {
+        
+        self.type = type
         
         let databaseFactory = DatabaseDriverFactory()
         let domainModule = DomainModule(databaseDriverFactory: databaseFactory)
-        fetchActiveUseCase = domainModule.getFetchShareByTypeUseCase()
+        fetchFixedIncomeByTypeUseCase = domainModule.getFetchFixedIncomeByTypeUseCase()
         
         super.init()
         
@@ -26,7 +30,7 @@ class StockViewModel: BaseListViewModel {
     
     
     func loadStocks() {
-        fetchActiveUseCase.execute(type: ShareType.stock) { activeDtos, error in
+        fetchFixedIncomeByTypeUseCase.execute(type: self.type) { activeDtos, error in
             if let error = error {
                 print(error.localizedDescription)
             }

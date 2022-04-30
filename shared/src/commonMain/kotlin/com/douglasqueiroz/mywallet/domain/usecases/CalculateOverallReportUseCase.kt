@@ -50,19 +50,52 @@ internal class CalculateOverallReportUseCaseImpl(
         val total = savingTotal + stockTotal + reitTotal + bitcoinTotal + goldTotal
 
         return listOf(
-            createOverallReportDto("Saving Account", savingTotal, total),
-            createOverallReportDto("Stock", stockTotal, total),
-            createOverallReportDto("Reit", reitTotal, total),
-            createOverallReportDto("Bitcoin", bitcoinTotal, total),
-            createOverallReportDto("Gold", goldTotal, total)
+            createOverallReportDto(
+                name = "Saving Account",
+                total = savingTotal,
+                totalOverall = total,
+                fixedIncomeType = FixedIncomeType.SAVING_ACCOUNT
+            ),
+            createOverallReportDto(
+                name ="Stock",
+                total = stockTotal,
+                totalOverall = total,
+                shareType = ShareType.Stock
+            ),
+            createOverallReportDto(
+                name = "Reit",
+                total = reitTotal,
+                totalOverall = total,
+                shareType = ShareType.REIT
+            ),
+            createOverallReportDto(
+                name = "Bitcoin",
+                total = bitcoinTotal,
+                totalOverall = total,
+                shareType = ShareType.BITCOIN
+            ),
+            createOverallReportDto(
+                name = "Gold",
+                total = goldTotal,
+                totalOverall = total,
+                shareType = ShareType.GOLD
+            )
         )
     }
 
-    private fun createOverallReportDto(name: String, total: Double, totalOverall: Double): OverallReportDto {
+    private fun createOverallReportDto(
+        name: String,
+        total: Double,
+        totalOverall: Double,
+        shareType: ShareType? = null,
+        fixedIncomeType: FixedIncomeType? = null
+    ): OverallReportDto {
         return OverallReportDto(
             name = name,
             total = total,
-            percentage = total * 100 / totalOverall
+            percentage = total * 100 / totalOverall,
+            shareType = shareType,
+            fixedIncomeType = fixedIncomeType
         )
     }
 
