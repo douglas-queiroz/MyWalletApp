@@ -7,8 +7,12 @@ import com.douglasqueiroz.mywallet.Greeting
 import android.widget.TextView
 import com.douglasqueiroz.mywallet.DatabaseDriverFactory
 import com.douglasqueiroz.mywallet.di.DomainModule
+import com.douglasqueiroz.mywallet.domain.enum.ShareType
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
+import java.sql.Timestamp
+import java.time.Instant
+import java.util.*
 import kotlin.coroutines.CoroutineContext
 
 fun greet(): String {
@@ -23,21 +27,26 @@ class MainActivity : AppCompatActivity() {
         val tv: TextView = findViewById(R.id.text_view)
         tv.text = greet()
 
-        val download = DomainModule(DatabaseDriverFactory(this)).getLoadDatabaseUseCase()
-        val calculate = DomainModule(DatabaseDriverFactory(this)).getCalculateOverallReportUseCase()
-        val collectQuotationsUseCase = DomainModule(DatabaseDriverFactory(this)).getCollectionQuotationsUseCase()
+        val domain = DomainModule(DatabaseDriverFactory(this))
+
+        val download = domain.getLoadDatabaseUseCase()
+        val calculate = domain.getCalculateOverallReportUseCase()
+        val collectQuotationsUseCase = domain.getCollectionQuotationsUseCase()
+        val fetchShare = domain.getFetchShareByTypeUseCase()
+        val addTransactionUseCase = domain.getAddTransactionUseCase()
 
         val mainScope = MainScope()
 
         mainScope.launch {
-//            download.execute()
-//            val result = calculate.execute()
+            val share = fetchShare.execute(ShareType.Stock).first()
 
-//            result.forEach {
-//                Log.i("Douglas", "${it.name} | ${it.percentage} | ${it.total} ")
-//            }
 
-            collectQuotationsUseCase.execute()
+
+
+//            addTransactionUseCase.execute(
+//                active = share,
+//                price = 10.5f
+//            )
         }
     }
 }

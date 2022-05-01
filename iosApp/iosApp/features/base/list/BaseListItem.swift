@@ -7,9 +7,11 @@
 //
 
 import Foundation
+import shared
 
 struct BaseListItem: Identifiable {
     let id: Int
     let name: String
     let total: String
+    let active: ActiveDto
 }

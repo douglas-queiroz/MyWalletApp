@@ -14,12 +14,14 @@ struct MWButton: View {
     let onClick: () -> Void
     
     var body: some View {
-        ZStack {
+        HStack {
+            Spacer()
             Button(action: onClick) {
                 Text(text)
                     .foregroundColor(Color.white)
                     .padding()
             }
+            Spacer()
         }.background(Color.blue)
             .cornerRadius(15)
     }

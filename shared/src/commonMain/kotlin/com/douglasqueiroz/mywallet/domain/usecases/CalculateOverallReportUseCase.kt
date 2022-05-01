@@ -110,7 +110,7 @@ internal class CalculateOverallReportUseCaseImpl(
     private suspend fun convertToEuro(reportInfo: ShareReportInfo): Double {
         val currencyIdTo  = reportInfo.currencyId
         val rate = currencyDao.getCurrencyRate(currencyIdTo)
-        val price = reportInfo.price?.toDouble() ?: transactionDao.getByTransactionableId(reportInfo.id)?.price?.toDouble() ?: 0.0
+        val price = reportInfo.price?.toDouble() ?: transactionDao.getLastByTransactionableId(reportInfo.id)?.price?.toDouble() ?: 0.0
         val quantity = reportInfo.quantity ?: 0.0
 
         return (price / rate * quantity)

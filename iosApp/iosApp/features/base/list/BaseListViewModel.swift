@@ -10,7 +10,12 @@ import Foundation
 
 class BaseListViewModel: ObservableObject {
     
+    let title: String
     @Published var list = [BaseListItem]()
+    
+    init(title: String) {
+        self.title = title
+    }
     
     func updateList(with list: [BaseListItem]) {
         self.list = list

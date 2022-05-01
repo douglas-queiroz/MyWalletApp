@@ -26,14 +26,16 @@ struct HomeView: View {
                     .font(.largeTitle)
                 
                 HStack {
+                    
                     MWButton(
                         text: "Database",
                         onClick: { viewModel.loadDatabase() }
-                    )
+                    ).padding()
+                    
                     MWButton(
                         text: "Quotation",
                         onClick: { viewModel.collectQuotations() }
-                    )
+                    ).padding(.trailing)
                 }
             }
             

@@ -36,6 +36,7 @@ sharedActive:
 SELECT
 	s.id,
 	s.name,
+	s.code,
 	c.symbol,
 	(SELECT SUM(quantity) FROM FinancialTransactionEntity WHERE transactionableId = s.id ) AS quantity,
 	(SELECT price FROM QuoteEntity WHERE shareId = s.id ORDER BY  date DESC LIMIT 1) AS price

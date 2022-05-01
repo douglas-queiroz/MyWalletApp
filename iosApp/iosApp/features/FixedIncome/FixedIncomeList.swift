@@ -23,11 +23,10 @@ class FixedIncomeList: BaseListViewModel {
         let domainModule = DomainModule(databaseDriverFactory: databaseFactory)
         fetchFixedIncomeByTypeUseCase = domainModule.getFetchFixedIncomeByTypeUseCase()
         
-        super.init()
+        super.init(title: "Saving Account")
         
         self.loadStocks()
     }
-    
     
     func loadStocks() {
         fetchFixedIncomeByTypeUseCase.execute(type: self.type) { activeDtos, error in
@@ -39,7 +38,8 @@ class FixedIncomeList: BaseListViewModel {
                 BaseListItem(
                     id: index,
                     name: activeDto.name,
-                    total: "\(activeDto.currency) \(activeDto.total.formatTwoDigits())"
+                    total: "\(activeDto.currency) \(activeDto.total.formatTwoDigits())",
+                    active: activeDto
                 )
             })
             

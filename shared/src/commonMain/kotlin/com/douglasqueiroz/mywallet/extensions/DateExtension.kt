@@ -1,4 +1,6 @@
 package com.douglasqueiroz.mywallet.extensions
 
-class DateExtension {
-}
+import kotlinx.datetime.Instant
+
+
+fun Instant.toOnlyDate() = this.toString().substring(0, 10)

@@ -22,7 +22,26 @@ class ShareViewModel: BaseListViewModel {
         let domainModule = DomainModule(databaseDriverFactory: databaseFactory)
         fetchActiveUseCase = domainModule.getFetchShareByTypeUseCase()
         
-        super.init()
+        var title = ""
+        
+        switch type {
+        case .stock:
+            title = "Stocks"
+            break
+        case .bitcoin:
+            title = "Bitcoin"
+            break
+        case .gold:
+            title = "Gold"
+            break
+        case .reit:
+            title = "REITs"
+            break
+        default:
+            title = ""
+        }
+        
+        super.init(title: title)
         
         self.loadStocks()
     }
@@ -38,7 +57,8 @@ class ShareViewModel: BaseListViewModel {
                 BaseListItem(
                     id: index,
                     name: activeDto.name,
-                    total: "\(activeDto.currency) \(activeDto.total.formatTwoDigits())"
+                    total: "\(activeDto.currency) \(activeDto.total.formatTwoDigits())",
+                    active: activeDto
                 )
             })
             

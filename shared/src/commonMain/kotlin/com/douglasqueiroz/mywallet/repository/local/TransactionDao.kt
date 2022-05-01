@@ -26,10 +26,17 @@ internal class TransactionDao(databaseDriverFactory: DatabaseDriverFactory): Bas
         }
     }
 
-    suspend fun getByTransactionableId(transactionableId: String): FinancialTransactionEntity? = withContext(Default) {
+    suspend fun getLastByTransactionableId(transactionableId: String): FinancialTransactionEntity? = withContext(Default) {
         return@withContext database
             .financialTransactionQueries
             .getLastTransactionByTransactionableId(transactionableId)
             .executeAsOneOrNull()
+    }
+
+    suspend fun getByTransactionableId(transactionableId: String) = withContext(Default) {
+        return@withContext database
+            .financialTransactionQueries
+            .getTransactionByTransactionableId(transactionableId)
+            .executeAsList()
     }
 }
