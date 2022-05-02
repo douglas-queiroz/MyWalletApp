@@ -11,7 +11,7 @@ import shared
 
 struct BaseDetailsView: View {
     
-    let viewModel: BaseDetailsViewModel
+    @ObservedObject var viewModel: BaseDetailsViewModel
     
     var body: some View {
         VStack(alignment: .leading) {
@@ -37,16 +37,21 @@ struct BaseDetailsView: View {
             }
             
             HStack(spacing: 20.0) {
+                
                 MWButton(text: "Edit") {
                     
                 }
+                
                 MWButton(text: "Add Transactions") {
-                    
+                    viewModel.addTransaction()
                 }
             }
         }
         .padding()
         .navigationBarTitle(viewModel.active.name, displayMode: .inline)
+        .sheet(item: viewModel.transactionFormViewModel) { viewModelModel in
+            TransactionFormView(viewModel: viewModelModel)
+        }
     }
 }
 
@@ -59,7 +64,7 @@ struct BaseDetails_Previews: PreviewProvider {
             currency: "$",
             total: 10.0,
             transactions: [
-                TransactionDto(id: "1", date: "10/10/2020", total: 10.0)
+                TransactionDto(id: "1", date: "10/10/2020", total: 10.00)
             ])
         
         NavigationView {

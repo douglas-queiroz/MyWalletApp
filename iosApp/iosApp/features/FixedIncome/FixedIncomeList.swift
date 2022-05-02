@@ -24,11 +24,9 @@ class FixedIncomeList: BaseListViewModel {
         fetchFixedIncomeByTypeUseCase = domainModule.getFetchFixedIncomeByTypeUseCase()
         
         super.init(title: "Saving Account")
-        
-        self.loadStocks()
     }
     
-    func loadStocks() {
+    override func load() {
         fetchFixedIncomeByTypeUseCase.execute(type: self.type) { activeDtos, error in
             if let error = error {
                 print(error.localizedDescription)

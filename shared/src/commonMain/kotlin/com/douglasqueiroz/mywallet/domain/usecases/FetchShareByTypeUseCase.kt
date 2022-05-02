@@ -1,5 +1,6 @@
 package com.douglasqueiroz.mywallet.domain.usecases
 
+import com.douglasqueiroz.mywallet.Logger
 import com.douglasqueiroz.mywallet.domain.dto.ActiveDto
 import com.douglasqueiroz.mywallet.domain.dto.TransactionDto
 import com.douglasqueiroz.mywallet.domain.enum.ShareType

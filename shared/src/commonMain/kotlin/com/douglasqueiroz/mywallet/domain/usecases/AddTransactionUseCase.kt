@@ -1,6 +1,7 @@
 package com.douglasqueiroz.mywallet.domain.usecases
 
 import com.benasher44.uuid.uuid4
+import com.douglasqueiroz.mywallet.Logger
 import com.douglasqueiroz.mywallet.data.model.FinancialTransactionEntity
 import com.douglasqueiroz.mywallet.domain.dto.ActiveDto
 import com.douglasqueiroz.mywallet.extensions.toOnlyDate
@@ -11,8 +12,8 @@ interface AddTransactionUseCase {
 
     suspend fun execute(
         active: ActiveDto,
-        date: Instant = Clock.System.now(),
-        quantity: Float? = null,
+        date: String? = null,
+        quantity: Float,
         price: Float
     )
 }
@@ -23,23 +24,24 @@ internal class AddTransactionUseCaseImpl(
 
     override suspend fun execute(
         active: ActiveDto,
-        date: Instant,
-        quantity: Float?,
+        date: String?,
+        quantity: Float,
         price: Float
     ) {
 
         val qtd = quantity ?: 1.0f
-        val now = Clock.System.now().toString()
+        val now = Clock.System.now()
+
 
         FinancialTransactionEntity(
             id = uuid4().toString(),
-            date = date.toOnlyDate(),
+            date = date ?: now.toOnlyDate(),
             quantity = quantity,
             price = price,
             total = price * qtd,
             transactionableId = active.id,
-            createdAt = now,
-            updatedAt = now
+            createdAt = now.toString(),
+            updatedAt = now.toString()
         ).also {
             transactionDao.insert(it)
         }

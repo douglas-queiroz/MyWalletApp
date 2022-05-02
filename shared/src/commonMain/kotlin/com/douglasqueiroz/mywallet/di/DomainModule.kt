@@ -97,4 +97,10 @@ class DomainModule(
     fun getAddTransactionUseCase(): AddTransactionUseCase = AddTransactionUseCaseImpl(
         transactionDao = TransactionDao(databaseDriverFactory)
     )
+
+    fun getGetActiveUseCase(): GetActiveUseCase = GetActiveUseCaseImpl(
+        shareDao = ShareDao(databaseDriverFactory),
+        fixedIncomeDao = FixedIncomeDao(databaseDriverFactory),
+        transactionDao = TransactionDao(databaseDriverFactory)
+    )
 }

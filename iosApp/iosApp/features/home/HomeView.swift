@@ -46,6 +46,7 @@ struct HomeView: View {
         
             NavigationLink(tag: .ListView, selection: $viewModel.navigateToList, destination: listViewDestination, label: EmptyView.init)
         }.navigationTitle("Home")
+            .onAppear{ viewModel.updateReport() }
     }
     
     @ViewBuilder

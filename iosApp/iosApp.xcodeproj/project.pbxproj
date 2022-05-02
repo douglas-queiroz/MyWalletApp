@@ -20,6 +20,12 @@
 		CB560CCF2811F36500BA6DC1 /* ShareViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB560CCE2811F36500BA6DC1 /* ShareViewModel.swift */; };
 		CB76C6CA27E91D5C003455DC /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB76C6C927E91D5C003455DC /* HomeViewModel.swift */; };
 		CB76C6CC27E9223E003455DC /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB76C6CB27E9223E003455DC /* HomeView.swift */; };
+		CBB5AF0E281EB931001D0FF3 /* TransactionFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBB5AF0D281EB931001D0FF3 /* TransactionFormView.swift */; };
+		CBB5AF10281EE409001D0FF3 /* MWTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBB5AF0F281EE409001D0FF3 /* MWTextField.swift */; };
+		CBB5AF12281EFF4B001D0FF3 /* TransactionFormViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBB5AF11281EFF4B001D0FF3 /* TransactionFormViewModel.swift */; };
+		CBB5AF14281F1D60001D0FF3 /* BindingExtention.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBB5AF13281F1D60001D0FF3 /* BindingExtention.swift */; };
+		CBB5AF19281FE90C001D0FF3 /* DateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBB5AF18281FE90C001D0FF3 /* DateExtension.swift */; };
+		CBB5AF1B281FE9A0001D0FF3 /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBB5AF1A281FE9A0001D0FF3 /* StringExtensions.swift */; };
 		CBC6DA1728020739003F6B44 /* MWLoading.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBC6DA1628020739003F6B44 /* MWLoading.swift */; };
 		CBE84E78281D4E1300BE0AE1 /* FixedIncomeList.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBE84E77281D4E1300BE0AE1 /* FixedIncomeList.swift */; };
 		CBF4164C2805FAD0008B97C2 /* BaseListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBF4164B2805FAD0008B97C2 /* BaseListView.swift */; };
@@ -45,6 +51,12 @@
 		CB560CCE2811F36500BA6DC1 /* ShareViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareViewModel.swift; sourceTree = "<group>"; };
 		CB76C6C927E91D5C003455DC /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		CB76C6CB27E9223E003455DC /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		CBB5AF0D281EB931001D0FF3 /* TransactionFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionFormView.swift; sourceTree = "<group>"; };
+		CBB5AF0F281EE409001D0FF3 /* MWTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MWTextField.swift; sourceTree = "<group>"; };
+		CBB5AF11281EFF4B001D0FF3 /* TransactionFormViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionFormViewModel.swift; sourceTree = "<group>"; };
+		CBB5AF13281F1D60001D0FF3 /* BindingExtention.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BindingExtention.swift; sourceTree = "<group>"; };
+		CBB5AF18281FE90C001D0FF3 /* DateExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtension.swift; sourceTree = "<group>"; };
+		CBB5AF1A281FE9A0001D0FF3 /* StringExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtensions.swift; sourceTree = "<group>"; };
 		CBC6DA1628020739003F6B44 /* MWLoading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MWLoading.swift; sourceTree = "<group>"; };
 		CBE84E77281D4E1300BE0AE1 /* FixedIncomeList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FixedIncomeList.swift; sourceTree = "<group>"; };
 		CBF4164B2805FAD0008B97C2 /* BaseListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseListView.swift; sourceTree = "<group>"; };
@@ -151,6 +163,7 @@
 				CB402EAA27FF7CBA00308FC0 /* MWButton.swift */,
 				CBC6DA1628020739003F6B44 /* MWLoading.swift */,
 				CB391BB0281E951C00A8C509 /* MWDetailText.swift */,
+				CBB5AF0F281EE409001D0FF3 /* MWTextField.swift */,
 			);
 			path = ui;
 			sourceTree = "<group>";
@@ -166,6 +179,7 @@
 		CB76C6C727E91D3F003455DC /* features */ = {
 			isa = PBXGroup;
 			children = (
+				CBB5AF0C281EB918001D0FF3 /* Transaction */,
 				CBE84E76281D4DF600BE0AE1 /* FixedIncome */,
 				CBF4164A2805FABF008B97C2 /* base */,
 				CB76C6C827E91D48003455DC /* home */,
@@ -181,6 +195,15 @@
 				CB76C6CB27E9223E003455DC /* HomeView.swift */,
 			);
 			path = home;
+			sourceTree = "<group>";
+		};
+		CBB5AF0C281EB918001D0FF3 /* Transaction */ = {
+			isa = PBXGroup;
+			children = (
+				CBB5AF0D281EB931001D0FF3 /* TransactionFormView.swift */,
+				CBB5AF11281EFF4B001D0FF3 /* TransactionFormViewModel.swift */,
+			);
+			path = Transaction;
 			sourceTree = "<group>";
 		};
 		CBD32EDA28158A1D00EAE880 /* routers */ = {
@@ -211,6 +234,9 @@
 			isa = PBXGroup;
 			children = (
 				CBFCEC9B2814017D003BD24D /* Double.swift */,
+				CBB5AF13281F1D60001D0FF3 /* BindingExtention.swift */,
+				CBB5AF18281FE90C001D0FF3 /* DateExtension.swift */,
+				CBB5AF1A281FE9A0001D0FF3 /* StringExtensions.swift */,
 			);
 			path = extensions;
 			sourceTree = "<group>";
@@ -329,6 +355,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CBB5AF10281EE409001D0FF3 /* MWTextField.swift in Sources */,
 				CBF4164C2805FAD0008B97C2 /* BaseListView.swift in Sources */,
 				CB560CCF2811F36500BA6DC1 /* ShareViewModel.swift in Sources */,
 				CBC6DA1728020739003F6B44 /* MWLoading.swift in Sources */,
@@ -339,8 +366,13 @@
 				CB76C6CC27E9223E003455DC /* HomeView.swift in Sources */,
 				CB402EAB27FF7CBA00308FC0 /* MWButton.swift in Sources */,
 				CBF4164E28060DD3008B97C2 /* BaseListViewModel.swift in Sources */,
+				CBB5AF1B281FE9A0001D0FF3 /* StringExtensions.swift in Sources */,
 				CBE84E78281D4E1300BE0AE1 /* FixedIncomeList.swift in Sources */,
+				CBB5AF0E281EB931001D0FF3 /* TransactionFormView.swift in Sources */,
 				CB76C6CA27E91D5C003455DC /* HomeViewModel.swift in Sources */,
+				CBB5AF14281F1D60001D0FF3 /* BindingExtention.swift in Sources */,
+				CBB5AF12281EFF4B001D0FF3 /* TransactionFormViewModel.swift in Sources */,
+				CBB5AF19281FE90C001D0FF3 /* DateExtension.swift in Sources */,
 				CBF4165028060E2F008B97C2 /* BaseListItem.swift in Sources */,
 				CBFCEC9C2814017D003BD24D /* Double.swift in Sources */,
 				7555FF83242A565900829871 /* ContentView.swift in Sources */,

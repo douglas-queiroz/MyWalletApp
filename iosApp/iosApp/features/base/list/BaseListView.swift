@@ -24,6 +24,9 @@ struct BaseListView: View {
                 }
             }
         }.navigationBarTitle(Text(viewModel.title), displayMode: .inline)
+            .onAppear {
+                viewModel.load()
+            }
     }
 }
  

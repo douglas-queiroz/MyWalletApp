@@ -47,10 +47,9 @@ class HomeViewModel: ObservableObject {
         loadDatabaseUseCase = doaminModule.getLoadDatabaseUseCase()
         calculateOverallReportUseCase = doaminModule.getCalculateOverallReportUseCase()
         collectQuotationUseCase = doaminModule.getCollectionQuotationsUseCase()
-        getReport()
     }
     
-    private func getReport() {
+    func updateReport() {
         showLoading = true
         
         calculateOverallReportUseCase.execute { [weak self] result, error in
@@ -92,7 +91,7 @@ class HomeViewModel: ObservableObject {
         loadDatabaseUseCase.execute { result, error in
             if result != nil {
                 weak var selfWeak = self
-                selfWeak?.getReport()
+                selfWeak?.updateReport()
             }
             
             if let error = error {
@@ -113,7 +112,7 @@ class HomeViewModel: ObservableObject {
             if let error = error {
                 print(error.localizedDescription)
             } else {
-                self.getReport()
+                self.updateReport()
             }
             
             self.showLoading = false

@@ -17,6 +17,10 @@ class BaseListViewModel: ObservableObject {
         self.title = title
     }
     
+    func load() {
+        assertionFailure()
+    }
+    
     func updateList(with list: [BaseListItem]) {
         self.list = list
     }

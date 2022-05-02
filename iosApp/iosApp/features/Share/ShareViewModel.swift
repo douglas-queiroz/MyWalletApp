@@ -42,12 +42,10 @@ class ShareViewModel: BaseListViewModel {
         }
         
         super.init(title: title)
-        
-        self.loadStocks()
     }
     
     
-    func loadStocks() {
+    override func load() {
         fetchActiveUseCase.execute(type: self.type) { activeDtos, error in
             if let error = error {
                 print(error.localizedDescription)
