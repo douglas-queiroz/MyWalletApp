@@ -1,13 +1,14 @@
 package com.douglasqueiroz.mywallet.domain.usecases
 
-import com.douglasqueiroz.mywallet.domain.dto.ActiveDto
+import com.douglasqueiroz.mywallet.domain.dto.AssetDto
+import com.douglasqueiroz.mywallet.domain.dto.CurrencyDto
 import com.douglasqueiroz.mywallet.domain.dto.TransactionDto
 import com.douglasqueiroz.mywallet.domain.enum.FixedIncomeType
 import com.douglasqueiroz.mywallet.repository.local.FixedIncomeDao
 import com.douglasqueiroz.mywallet.repository.local.TransactionDao
 
 interface FetchFixedIncomeByTypeUseCase {
-    suspend fun execute(type: FixedIncomeType): List<ActiveDto>
+    suspend fun execute(type: FixedIncomeType): List<AssetDto>
 }
 
 internal class FetchFixedIncomeByTypeUseCaseImpl(
@@ -16,13 +17,13 @@ internal class FetchFixedIncomeByTypeUseCaseImpl(
 ): FetchFixedIncomeByTypeUseCase {
 
     override suspend fun execute(type: FixedIncomeType) = fixedIncomeDao
-        .getActive(type.ordinal.toLong())
+        .getAsset(type.ordinal.toLong())
         .map {
-            ActiveDto(
+            AssetDto(
                 id = it.id,
                 name = it.name ?: "",
-                symbol = "",
-                currency = it.symbol ?: "",
+                code = "",
+                currency = CurrencyDto(it.currencyId, it.currencyName ?: "", it.currencySymbol ?: ""),
                 total = it.total ?: 0.0,
                 transactions = getTransactions(it.id)
             )

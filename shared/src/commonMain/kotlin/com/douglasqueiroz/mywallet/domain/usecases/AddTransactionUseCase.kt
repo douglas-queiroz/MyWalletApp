@@ -1,9 +1,8 @@
 package com.douglasqueiroz.mywallet.domain.usecases
 
 import com.benasher44.uuid.uuid4
-import com.douglasqueiroz.mywallet.Logger
 import com.douglasqueiroz.mywallet.data.model.FinancialTransactionEntity
-import com.douglasqueiroz.mywallet.domain.dto.ActiveDto
+import com.douglasqueiroz.mywallet.domain.dto.AssetDto
 import com.douglasqueiroz.mywallet.extensions.toOnlyDate
 import com.douglasqueiroz.mywallet.repository.local.TransactionDao
 import kotlinx.datetime.*
@@ -11,7 +10,7 @@ import kotlinx.datetime.*
 interface AddTransactionUseCase {
 
     suspend fun execute(
-        active: ActiveDto,
+        asset: AssetDto,
         date: String? = null,
         quantity: Float,
         price: Float
@@ -23,7 +22,7 @@ internal class AddTransactionUseCaseImpl(
 ): AddTransactionUseCase {
 
     override suspend fun execute(
-        active: ActiveDto,
+        asset: AssetDto,
         date: String?,
         quantity: Float,
         price: Float
@@ -39,7 +38,7 @@ internal class AddTransactionUseCaseImpl(
             quantity = quantity,
             price = price,
             total = price * qtd,
-            transactionableId = active.id,
+            transactionableId = asset.id,
             createdAt = now.toString(),
             updatedAt = now.toString()
         ).also {

@@ -1,7 +1,7 @@
 package com.douglasqueiroz.mywallet.domain.usecases
 
-import com.douglasqueiroz.mywallet.Logger
-import com.douglasqueiroz.mywallet.domain.dto.ActiveDto
+import com.douglasqueiroz.mywallet.domain.dto.AssetDto
+import com.douglasqueiroz.mywallet.domain.dto.CurrencyDto
 import com.douglasqueiroz.mywallet.domain.dto.TransactionDto
 import com.douglasqueiroz.mywallet.domain.enum.ShareType
 import com.douglasqueiroz.mywallet.repository.local.ShareDao
@@ -9,7 +9,7 @@ import com.douglasqueiroz.mywallet.repository.local.TransactionDao
 
 interface FetchShareByTypeUseCase {
 
-    suspend fun execute(type: ShareType): List<ActiveDto>
+    suspend fun execute(type: ShareType): List<AssetDto>
 }
 
 internal class FetchShareByTypeUseCaseImpl(
@@ -17,15 +17,15 @@ internal class FetchShareByTypeUseCaseImpl(
     private val transactionDao: TransactionDao
 ): FetchShareByTypeUseCase {
 
-    override suspend fun execute(type: ShareType): List<ActiveDto> {
+    override suspend fun execute(type: ShareType): List<AssetDto> {
         return shareDao
-            .getActive(type.ordinal.toLong())
+            .getAsset(type.ordinal.toLong())
             .map {
-                ActiveDto(
+                AssetDto(
                     id = it.id,
                     name = it.name ?: "",
-                    symbol = it.code ?: "",
-                    currency = it.symbol ?: "",
+                    code = it.code ?: "",
+                    currency = CurrencyDto(it.currencyId, it.currencyName ?: "", it.currencySymbol ?: ""),
                     total = calculateTotal(it.id, it.quantity, it.price),
                     transactions = getTransactions(it.id)
                 )

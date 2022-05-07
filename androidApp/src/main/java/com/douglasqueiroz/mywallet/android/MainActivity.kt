@@ -38,7 +38,7 @@ class MainActivity : AppCompatActivity() {
         val mainScope = MainScope()
 
         mainScope.launch {
-            val share = fetchShare.execute(ShareType.Stock).first()
+//            val share = fetchShare.execute(ShareType.Stock).first()
 
 
 

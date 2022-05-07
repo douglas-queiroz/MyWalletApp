@@ -32,12 +32,14 @@ WHERE
 getAll:
 SELECT * FROM ShareEntity;
 
-sharedActive:
+getShareAssetByType:
 SELECT
 	s.id,
 	s.name,
 	s.code,
-	c.symbol,
+	c.id AS currencyId,
+	c.name  AS currencyName,
+	c.symbol AS currencySymbol,
 	(SELECT SUM(quantity) FROM FinancialTransactionEntity WHERE transactionableId = s.id ) AS quantity,
 	(SELECT price FROM QuoteEntity WHERE shareId = s.id ORDER BY  date DESC LIMIT 1) AS price
 FROM
@@ -47,12 +49,14 @@ INNER JOIN
 WHERE
 	type = ?;
 
-sharedActiveById:
+getShareAssetById:
 SELECT
 	s.id,
 	s.name,
 	s.code,
-	c.symbol,
+	c.id AS currencyId,
+    c.name  AS currencyName,
+    c.symbol AS currencySymbol,
 	(SELECT SUM(quantity) FROM FinancialTransactionEntity WHERE transactionableId = s.id ) AS quantity,
 	(SELECT price FROM QuoteEntity WHERE shareId = s.id ORDER BY  date DESC LIMIT 1) AS price
 FROM

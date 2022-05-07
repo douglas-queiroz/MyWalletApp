@@ -1,47 +1,48 @@
 package com.douglasqueiroz.mywallet.domain.usecases
 
-import com.douglasqueiroz.mywallet.domain.dto.ActiveDto
+import com.douglasqueiroz.mywallet.domain.dto.AssetDto
+import com.douglasqueiroz.mywallet.domain.dto.CurrencyDto
 import com.douglasqueiroz.mywallet.domain.dto.TransactionDto
 import com.douglasqueiroz.mywallet.repository.local.FixedIncomeDao
 import com.douglasqueiroz.mywallet.repository.local.ShareDao
 import com.douglasqueiroz.mywallet.repository.local.TransactionDao
 
-interface GetActiveUseCase {
+interface GetAssetUseCase {
 
-    suspend fun execute(id: String): ActiveDto?
+    suspend fun execute(id: String): AssetDto?
 }
 
-internal class GetActiveUseCaseImpl(
+internal class GetAssetUseCaseImpl(
     private val fixedIncomeDao: FixedIncomeDao,
     private val shareDao: ShareDao,
     private val transactionDao: TransactionDao
-): GetActiveUseCase {
+): GetAssetUseCase {
 
-    override suspend fun execute(id: String): ActiveDto? {
+    override suspend fun execute(id: String): AssetDto? {
 
         return getShare(id) ?: getFixedIncome(id)
     }
 
-    private suspend fun getShare(id: String): ActiveDto? {
-        return shareDao.getActive(id)?.let {
-            ActiveDto(
+    private suspend fun getShare(id: String): AssetDto? {
+        return shareDao.getAsset(id)?.let {
+            AssetDto(
                 id = it.id,
                 name = it.name ?: "",
-                symbol = it.code ?: "",
-                currency = it.symbol ?: "",
+                code = it.code ?: "",
+                currency = CurrencyDto(it.currencyId, it.currencyName ?: "", it.currencySymbol ?: ""),
                 total = calculateTotal(it.id, it.quantity, it.price),
                 transactions = getTransactions(it.id)
             )
         }
     }
 
-    private suspend fun getFixedIncome(id: String): ActiveDto? {
-        return fixedIncomeDao.getActive(id = id)?.let {
-            ActiveDto(
+    private suspend fun getFixedIncome(id: String): AssetDto? {
+        return fixedIncomeDao.getAsset(id = id)?.let {
+            AssetDto(
                 id = it.id,
                 name = it.name ?: "",
-                symbol = "",
-                currency = it.symbol ?: "",
+                code = "",
+                currency = CurrencyDto(it.currencyId, it.currencyName ?: "", it.currencySymbol ?: ""),
                 total = it.total ?: 0.0,
                 transactions = getTransactions(it.id)
             )

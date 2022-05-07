@@ -1,10 +1,7 @@
 package com.douglasqueiroz.mywallet.repository.local
 
 import com.douglasqueiroz.mywallet.DatabaseDriverFactory
-import com.douglasqueiroz.mywallet.data.model.ShareEntity
-import com.douglasqueiroz.mywallet.data.model.ShareReportInfo
-import com.douglasqueiroz.mywallet.data.model.SharedActive
-import com.douglasqueiroz.mywallet.data.model.SharedActiveById
+import com.douglasqueiroz.mywallet.data.model.*
 import com.douglasqueiroz.mywallet.domain.enum.ShareType
 import kotlinx.coroutines.Dispatchers.Default
 import kotlinx.coroutines.withContext
@@ -35,11 +32,11 @@ internal class ShareDao(databaseDriverFactory: DatabaseDriverFactory): BaseDao(d
         return@withContext database.shareQueries.getAll().executeAsList()
     }
 
-    suspend fun getActive(type: Long): List<SharedActive> = withContext(Default) {
-        return@withContext database.shareQueries.sharedActive(type).executeAsList()
+    suspend fun getAsset(type: Long): List<GetShareAssetByType> = withContext(Default) {
+        return@withContext database.shareQueries.getShareAssetByType(type).executeAsList()
     }
 
-    suspend fun getActive(id: String): SharedActiveById? = withContext(Default) {
-        return@withContext database.shareQueries.sharedActiveById(id).executeAsOneOrNull()
+    suspend fun getAsset(id: String): GetShareAssetById? = withContext(Default) {
+        return@withContext database.shareQueries.getShareAssetById(id).executeAsOneOrNull()
     }
 }

@@ -1,10 +1,7 @@
 package com.douglasqueiroz.mywallet.repository.local
 
 import com.douglasqueiroz.mywallet.DatabaseDriverFactory
-import com.douglasqueiroz.mywallet.data.model.FixedIncomeActive
-import com.douglasqueiroz.mywallet.data.model.FixedIncomeActiveById
-import com.douglasqueiroz.mywallet.data.model.FixedIncomeEntity
-import com.douglasqueiroz.mywallet.data.model.FixedIncomeReportInfo
+import com.douglasqueiroz.mywallet.data.model.*
 import com.douglasqueiroz.mywallet.domain.enum.FixedIncomeType
 import kotlinx.coroutines.Dispatchers.Default
 import kotlinx.coroutines.withContext
@@ -27,14 +24,23 @@ internal class FixedIncomeDao(databaseDriverFactory: DatabaseDriverFactory): Bas
     }
 
     suspend fun getReportInfoByType(type: FixedIncomeType): List<FixedIncomeReportInfo> = withContext(Default) {
-        return@withContext database.fixedIncomeQueries.fixedIncomeReportInfo(type.ordinal.toLong()).executeAsList()
+        return@withContext database
+            .fixedIncomeQueries
+            .fixedIncomeReportInfo(type.ordinal.toLong())
+            .executeAsList()
     }
 
-    suspend fun getActive(type: Long): List<FixedIncomeActive> = withContext(Default) {
-        return@withContext database.fixedIncomeQueries.fixedIncomeActive(type).executeAsList()
+    suspend fun getAsset(type: Long): List<GetFixedIncomeAssetByType> = withContext(Default) {
+        return@withContext database
+            .fixedIncomeQueries
+            .getFixedIncomeAssetByType(type)
+            .executeAsList()
     }
 
-    suspend fun getActive(id: String): FixedIncomeActiveById? = withContext(Default) {
-        return@withContext database.fixedIncomeQueries.fixedIncomeActiveById(id).executeAsOneOrNull()
+    suspend fun getAsset(id: String): GetFixedIncomeAssetById? = withContext(Default) {
+        return@withContext database
+            .fixedIncomeQueries
+            .getFixedIncomeAssetById(id)
+            .executeAsOneOrNull()
     }
 }
