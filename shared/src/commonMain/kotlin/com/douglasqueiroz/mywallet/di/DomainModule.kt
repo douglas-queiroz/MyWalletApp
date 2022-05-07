@@ -104,9 +104,13 @@ class DomainModule(
         transactionDao = TransactionDao(databaseDriverFactory)
     )
 
-    fun getInsertAsset(): InsertAssetUseCase = InsertAssetUseCaseImpl(
+    fun getInsertAssetUseCase(): InsertAssetUseCase = InsertAssetUseCaseImpl(
         fixedIncomeDao = FixedIncomeDao(databaseDriverFactory),
         shareDao = ShareDao(databaseDriverFactory),
         dateUtil = DateUtil()
+    )
+
+    fun getCurrenciesUseCase(): GetCurrenciesUseCase = GetCurrenciesUseCaseImpl(
+        currencyDao = CurrencyDao(databaseDriverFactory)
     )
 }
