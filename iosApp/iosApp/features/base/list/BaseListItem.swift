@@ -13,5 +13,5 @@ struct BaseListItem: Identifiable {
     let id: Int
     let name: String
     let total: String
-    let active: ActiveDto
+    let asset: AssetDto
 }

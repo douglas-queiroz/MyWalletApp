@@ -19,18 +19,18 @@ final class TransactionFormViewModel: ObservableObject, Identifiable {
     @Published private(set) var state: TransactionFormState
     
     private let addTransactionUseCase: AddTransactionUseCase
-    private let activeDto: ActiveDto
+    private let assetDto: AssetDto
     private let onCompleted: () -> Void
     
     init(
-        active: ActiveDto,
+        active: AssetDto,
         state: TransactionFormState,
         onCompleted: @escaping () -> Void
     ) {
         let databaseFactory = DatabaseDriverFactory()
         let doaminModule = DomainModule(databaseDriverFactory: databaseFactory)
         
-        self.activeDto = active
+        self.assetDto = active
         self.state = state
         self.addTransactionUseCase = doaminModule.getAddTransactionUseCase()
         self.onCompleted = onCompleted
@@ -49,7 +49,7 @@ final class TransactionFormViewModel: ObservableObject, Identifiable {
         
         
         addTransactionUseCase.execute(
-            active: activeDto,
+            asset: assetDto,
             date: self.date,
             quantity: quantity,
             price: price) { [weak self] _, error in

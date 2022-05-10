@@ -28,7 +28,7 @@ internal class AddTransactionUseCaseImpl(
         price: Float
     ) {
 
-        val qtd = quantity ?: 1.0f
+        val qtd = quantity
         val now = Clock.System.now()
 
 

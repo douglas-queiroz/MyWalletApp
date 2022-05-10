@@ -18,7 +18,7 @@ struct BaseListView: View {
             VStack {
                 List(viewModel.list) { item in
                     NavigationLink(
-                        destination: BaseDetailsView(viewModel: BaseDetailsViewModel(active: item.active))) {
+                        destination: BaseDetailsView(viewModel: BaseDetailsViewModel(asset: item.asset))) {
                             BaseList(item: item)
                         }
                 }
@@ -56,11 +56,24 @@ class Teste: BaseListViewModel {
     init() {
         super.init(title: "Stock")
         
-        let active = ActiveDto(id: "", name: "", symbol: "", currency: "", total: 0.0, transactions: [TransactionDto]())
+        let currency = CurrencyDto(
+            id: "",
+            name: "",
+            symbol: ""
+        )
+        
+        let active = AssetDto(
+            id: "",
+            name: "",
+            code: "",
+            currency: currency,
+            total: 0.0,
+            transactions: [TransactionDto]()
+        )
         
         updateList(with: [
-            BaseListItem(id: 1, name: "Teste", total: "R$ 1.000,00", active: active),
-            BaseListItem(id: 2, name: "Teste 2", total: "R$ 3.000,00", active: active)
+            BaseListItem(id: 1, name: "Teste", total: "R$ 1.000,00", asset: active),
+            BaseListItem(id: 2, name: "Teste 2", total: "R$ 3.000,00", asset: active)
         ])
     }
 }
@@ -70,11 +83,24 @@ class TesteB: BaseListViewModel {
     init() {
         super.init(title: "REITs")
         
-        let active = ActiveDto(id: "", name: "", symbol: "", currency: "", total: 0.0, transactions: [TransactionDto]())
+        let currency = CurrencyDto(
+            id: "",
+            name: "",
+            symbol: ""
+        )
+        
+        let active = AssetDto(
+            id: "",
+            name: "",
+            code: "",
+            currency: currency,
+            total: 0.0,
+            transactions: [TransactionDto]()
+        )
         
         updateList(with: [
-            BaseListItem(id: 1, name: "Teste3", total: "R$ 1.000,00", active: active),
-            BaseListItem(id: 2, name: "Teste 4", total: "R$ 3.000,00", active: active)
+            BaseListItem(id: 1, name: "Teste3", total: "R$ 1.000,00", asset: active),
+            BaseListItem(id: 2, name: "Teste 4", total: "R$ 3.000,00", asset: active)
         ])
     }
 }

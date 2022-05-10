@@ -40,7 +40,8 @@ struct TransactionFormView: View {
 
 struct TransactionFormView_Previews: PreviewProvider {
     static var previews: some View {
-        let activeDto = ActiveDto(id: "''", name: "", symbol: "", currency: "", total: 10.0, transactions: [TransactionDto]())
+        let currencyDto = CurrencyDto(id: "", name: "", symbol: "")
+        let activeDto = AssetDto(id: "''", name: "", code: "", currency: currencyDto, total: 10.0, transactions: [TransactionDto]())
         TransactionFormView(
             viewModel: TransactionFormViewModel(
                 active: activeDto,

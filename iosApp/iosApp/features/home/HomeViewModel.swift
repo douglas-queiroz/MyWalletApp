@@ -88,18 +88,18 @@ class HomeViewModel: ObservableObject {
     func loadDatabase() {
         showLoading = true
         
-        loadDatabaseUseCase.execute { result, error in
-            if result != nil {
-                weak var selfWeak = self
-                selfWeak?.updateReport()
-            }
-            
-            if let error = error {
-                print(error.localizedDescription)
-            }
-            
-            self.showLoading = false
-        }
+//        loadDatabaseUseCase.execute { result, error in
+//            if result != nil {
+//                weak var selfWeak = self
+//                selfWeak?.updateReport()
+//            }
+//            
+//            if let error = error {
+//                print(error.localizedDescription)
+//            }
+//            
+//            self.showLoading = false
+//        }
     }
     
     func collectQuotations() {

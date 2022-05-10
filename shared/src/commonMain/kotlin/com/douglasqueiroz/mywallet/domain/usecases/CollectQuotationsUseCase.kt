@@ -25,7 +25,7 @@ internal class CollectQuotationsUseCaseImpl(
 
     override suspend fun execute() {
 
-        var currencyConversionMap = mutableMapOf<String, String>()
+        val currencyConversionMap = mutableMapOf<String, String>()
         val codes = currencyConversionDao.getAll()
             .filter {
                 it.symbol != null
@@ -41,7 +41,7 @@ internal class CollectQuotationsUseCaseImpl(
                 it.code != null || it.code != "N/A"
             }.map {
                 shareMap[it.code!!] = it.id
-                it.code!!
+                it.code
             }
 
         val quotationsResponses = quotationAPI.getQuotations(codes = codes)

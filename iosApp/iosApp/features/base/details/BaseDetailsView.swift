@@ -15,13 +15,13 @@ struct BaseDetailsView: View {
     
     var body: some View {
         VStack(alignment: .leading) {
-            MWDetailText(field: "Name", value: viewModel.active.name)
+            MWDetailText(field: "Name", value: viewModel.asset.name)
             
-            if viewModel.active.symbol != "" {
-                MWDetailText(field: "Symbol", value: viewModel.active.symbol)
+            if viewModel.asset.symbol != "" {
+                MWDetailText(field: "Symbol", value: viewModel.asset.symbol)
             }
             
-            MWDetailText(field: "Total", value: viewModel.active.total)
+            MWDetailText(field: "Total", value: viewModel.asset.total)
             
             Spacer()
             Text("Transactions").bold().padding(.top)
@@ -31,7 +31,7 @@ struct BaseDetailsView: View {
             
             HStack {
                 Spacer()
-                Text("Total: \(viewModel.active.total)")
+                Text("Total: \(viewModel.asset.total)")
                     .font(.largeTitle)
                 Spacer()
             }
@@ -48,7 +48,7 @@ struct BaseDetailsView: View {
             }
         }
         .padding()
-        .navigationBarTitle(viewModel.active.name, displayMode: .inline)
+        .navigationBarTitle(viewModel.asset.name, displayMode: .inline)
         .sheet(item: viewModel.transactionFormViewModel) { viewModelModel in
             TransactionFormView(viewModel: viewModelModel)
         }
@@ -57,18 +57,24 @@ struct BaseDetailsView: View {
 
 struct BaseDetails_Previews: PreviewProvider {
     static var previews: some View {
-        let active = ActiveDto(
+        let currency = CurrencyDto(
+            id: "",
+            name: "",
+            symbol: ""
+        )
+        
+        let asset = AssetDto(
             id: "1",
             name: "STAG Trans",
-            symbol: "STAG",
-            currency: "$",
+            code: "STAG",
+            currency: currency,
             total: 10.0,
             transactions: [
                 TransactionDto(id: "1", date: "10/10/2020", total: 10.00)
             ])
         
         NavigationView {
-            BaseDetailsView(viewModel: BaseDetailsViewModel(active: active))
+            BaseDetailsView(viewModel: BaseDetailsViewModel(asset: asset))
         }
     }
 }

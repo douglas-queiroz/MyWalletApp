@@ -40,6 +40,7 @@ class MainActivity : AppCompatActivity() {
         mainScope.launch {
 //            val share = fetchShare.execute(ShareType.Stock).first()
 
+            collectQuotationsUseCase.execute()
 
 
 

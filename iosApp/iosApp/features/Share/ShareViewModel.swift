@@ -51,12 +51,12 @@ class ShareViewModel: BaseListViewModel {
                 print(error.localizedDescription)
             }
             
-            let items = activeDtos?.enumerated().map({ (index, activeDto) in
+            let items = activeDtos?.enumerated().map({ (index, assetDto) in
                 BaseListItem(
                     id: index,
-                    name: activeDto.name,
-                    total: "\(activeDto.currency) \(activeDto.total.formatTwoDigits())",
-                    active: activeDto
+                    name: assetDto.name,
+                    total: "\(assetDto.currency.symbol) \(assetDto.total.formatTwoDigits())",
+                    asset: assetDto
                 )
             })
             

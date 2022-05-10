@@ -16,7 +16,7 @@ struct TransactionItem: Identifiable {
     let total: String
 }
 
-struct Active {
+struct Asset {
     let name: String
     let symbol: String
     let total: String
@@ -24,40 +24,48 @@ struct Active {
 
 class BaseDetailsViewModel: ObservableObject, Identifiable {
     
-    @Published var active: Active
+    @Published var asset: Asset
     @Published var transactionItems: [TransactionItem]
     @Published private(set) var state: BaseDetailsState
     @State var show: Bool = false
     
-    private var activeDto: ActiveDto
-    private let getActiveUseCase: GetActiveUseCase
+    private var assetDto: AssetDto
+    private let getActiveUseCase: GetAssetUseCase
     
     var transactionFormViewModel: Binding<TransactionFormViewModel?> {
         Binding(to: \.state.transactionFormViewModel, on: self)
     }
     
-    init(active: ActiveDto, initState: BaseDetailsState = .init()) {
+    init(asset: AssetDto, initState: BaseDetailsState = .init()) {
         let databaseFactory = DatabaseDriverFactory()
         let doaminModule = DomainModule(databaseDriverFactory: databaseFactory)
         
-        self.getActiveUseCase = doaminModule.getGetActiveUseCase()
-        self.active = Active(name: active.name, symbol: active.symbol, total: "\(active.currency) \(active.total.formatTwoDigits())")
+        self.getActiveUseCase = doaminModule.getGetAssetUseCase()
+        self.asset = Asset(
+            name: asset.name,
+            symbol: asset.code,
+            total: "\(asset.currency.symbol) \(asset.total.formatTwoDigits())"
+        )
         self.state = initState
-        self.activeDto = active
+        self.assetDto = asset
         
-        self.transactionItems = active.transactions.enumerated().map({ index, transactionDto in
-            let total = active.currency + transactionDto.total.formatTwoDigits()
+        self.transactionItems = asset.transactions.enumerated().map({ index, transactionDto in
+            let total = asset.currency.symbol + transactionDto.total.formatTwoDigits()
             return TransactionItem(id: index, date: transactionDto.date, total: total)
         })
     }
     
     private func updateActive() {
-        getActiveUseCase.execute(id: activeDto.id) {[weak self] activeDto, error in
-            if let activeDto = activeDto {
-                self?.activeDto = activeDto
-                self?.active = Active(name: activeDto.name, symbol: activeDto.symbol, total: "\(activeDto.currency) \(activeDto.total.formatTwoDigits())")
-                self?.transactionItems = activeDto.transactions.enumerated().map({ index, transactionDto in
-                    let total = activeDto.currency + transactionDto.total.formatTwoDigits()
+        getActiveUseCase.execute(id: assetDto.id) {[weak self] assetDto, error in
+            if let assetDto = assetDto {
+                self?.assetDto = assetDto
+                self?.asset = Asset(
+                    name: assetDto.name,
+                    symbol: assetDto.code,
+                    total: "\(assetDto.currency) \(assetDto.total.formatTwoDigits())"
+                )
+                self?.transactionItems = assetDto.transactions.enumerated().map({ index, transactionDto in
+                    let total = assetDto.currency.symbol + transactionDto.total.formatTwoDigits()
                     return TransactionItem(id: index, date: transactionDto.date, total: total)
                 })
             }
@@ -70,7 +78,7 @@ class BaseDetailsViewModel: ObservableObject, Identifiable {
     
     func addTransaction() {
         state.transactionFormViewModel = TransactionFormViewModel(
-            active: activeDto,
+            active: assetDto,
             state: .init(),
             onCompleted: { [weak self] in
                 self?.updateActive()
