@@ -22,6 +22,12 @@ struct BaseListView: View {
                             BaseList(item: item)
                         }
                 }
+
+                MWButton(text: "Add Asset") {
+                    viewModel.onAddButtonClick()
+                }
+            }.sheet(item: $viewModel.assetFormViewModel) { viewModel in
+                AssetForm()
             }
         }.navigationBarTitle(Text(viewModel.title), displayMode: .inline)
             .onAppear {

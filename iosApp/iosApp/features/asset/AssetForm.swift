@@ -9,15 +9,37 @@
 import SwiftUI
 
 struct AssetForm: View {
+
+    let currencies = ["Euro", "Real", "Dolar"]
+    
+    @State var currency = ""
     
     @State var name: String = ""
     
     var body: some View {
-        Form {
-            MWTextField(
-                field: "Name",
-                value: $name
-            )
+        NavigationView {
+            Form {
+                MWTextField(
+                    field: "Name",
+                    value: $name
+                )
+                
+                MWTextField(
+                    field: "Symbol",
+                    value: $name
+                )
+                
+                Picker("Currency", selection: $currency) {
+                    ForEach(currencies, id: \.self) { currency in
+                        Text(currency)
+                    }
+                }
+                
+                MWButton(text: "Save") {
+                    
+                }
+                
+            }.navigationTitle("Asset")
         }
     }
 }

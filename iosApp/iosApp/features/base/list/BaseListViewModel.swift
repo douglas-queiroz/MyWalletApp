@@ -12,6 +12,7 @@ class BaseListViewModel: ObservableObject {
     
     let title: String
     @Published var list = [BaseListItem]()
+    @Published var assetFormViewModel: AssetFormViewModel?
     
     init(title: String) {
         self.title = title
@@ -23,5 +24,9 @@ class BaseListViewModel: ObservableObject {
     
     func updateList(with list: [BaseListItem]) {
         self.list = list
+    }
+    
+    func onAddButtonClick() {
+        self.assetFormViewModel = AssetFormViewModel()
     }
 }
