@@ -36,7 +36,7 @@ class FixedIncomeList: BaseListViewModel {
                 BaseListItem(
                     id: index,
                     name: activeDto.name,
-                    total: "\(activeDto.currency) \(activeDto.total.formatTwoDigits())",
+                    total: "\(activeDto.currency.symbol) \(activeDto.total.formatTwoDigits())",
                     asset: activeDto
                 )
             })
