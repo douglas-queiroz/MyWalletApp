@@ -113,4 +113,8 @@ class DomainModule(
     fun getCurrenciesUseCase(): GetCurrenciesUseCase = GetCurrenciesUseCaseImpl(
         currencyDao = CurrencyDao(databaseDriverFactory)
     )
+
+    fun getDeleteTransactionUseCase(): DeleteTransactionUseCase = DeleteTransactionUseCaseImpl(
+        transactionDao = TransactionDao(databaseDriverFactory)
+    )
 }

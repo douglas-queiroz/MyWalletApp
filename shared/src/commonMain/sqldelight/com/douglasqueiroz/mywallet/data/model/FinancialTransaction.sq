@@ -21,6 +21,9 @@ INSERT INTO FinancialTransactionEntity(
 deleteAll:
 DELETE FROM FinancialTransactionEntity;
 
+deleteById:
+DELETE FROM FinancialTransactionEntity WHERE id = ?;
+
 getTransactionByTransactionableId:
 SELECT * FROM FinancialTransactionEntity WHERE transactionableId = ? ORDER BY date DESC;
 

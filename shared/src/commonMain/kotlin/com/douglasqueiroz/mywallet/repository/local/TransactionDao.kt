@@ -39,4 +39,8 @@ internal class TransactionDao(databaseDriverFactory: DatabaseDriverFactory): Bas
             .getTransactionByTransactionableId(transactionableId)
             .executeAsList()
     }
+
+    suspend fun delete(id: String) = withContext(Default) {
+        database.financialTransactionQueries.deleteById(id)
+    }
 }

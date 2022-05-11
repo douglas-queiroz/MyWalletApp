@@ -66,6 +66,7 @@ class Teste: BaseListViewModel {
             id: "",
             name: "",
             code: "",
+            amount: 0.0,
             currency: currency,
             total: 0.0,
             transactions: [TransactionDto]()
@@ -93,6 +94,7 @@ class TesteB: BaseListViewModel {
             id: "",
             name: "",
             code: "",
+            amount: 0.0,
             currency: currency,
             total: 0.0,
             transactions: [TransactionDto]()

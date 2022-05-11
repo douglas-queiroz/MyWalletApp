@@ -29,6 +29,7 @@ internal class GetAssetUseCaseImpl(
                 id = it.id,
                 name = it.name ?: "",
                 code = it.code ?: "",
+                amount = it.quantity ?: 0.0,
                 currency = CurrencyDto(it.currencyId, it.currencyName ?: "", it.currencySymbol ?: ""),
                 total = calculateTotal(it.id, it.quantity, it.price),
                 transactions = getTransactions(it.id)
@@ -42,6 +43,7 @@ internal class GetAssetUseCaseImpl(
                 id = it.id,
                 name = it.name ?: "",
                 code = "",
+                amount = 0.0,
                 currency = CurrencyDto(it.currencyId, it.currencyName ?: "", it.currencySymbol ?: ""),
                 total = it.total ?: 0.0,
                 transactions = getTransactions(it.id)

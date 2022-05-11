@@ -25,6 +25,7 @@ internal class FetchShareByTypeUseCaseImpl(
                     id = it.id,
                     name = it.name ?: "",
                     code = it.code ?: "",
+                    amount = it.quantity ?: 0.0,
                     currency = CurrencyDto(it.currencyId, it.currencyName ?: "", it.currencySymbol ?: ""),
                     total = calculateTotal(it.id, it.quantity, it.price),
                     transactions = getTransactions(it.id)

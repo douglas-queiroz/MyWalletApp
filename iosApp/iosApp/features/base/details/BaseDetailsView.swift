@@ -20,13 +20,18 @@ struct BaseDetailsView: View {
             if viewModel.asset.symbol != "" {
                 MWDetailText(field: "Symbol", value: viewModel.asset.symbol)
             }
+            MWDetailText(field: "Amount", value: viewModel.asset.amount)
             
             MWDetailText(field: "Total", value: viewModel.asset.total)
             
             Spacer()
             Text("Transactions").bold().padding(.top)
-            List(viewModel.transactionItems) {
-                TransactionListItemView(item: $0)
+            List {
+                ForEach(viewModel.transactionItems, id: \.id) { transaction in
+                    TransactionListItemView(item: transaction)
+                }.onDelete { index in
+                    viewModel.deleteTransaction(indexSet: index)
+                }
             }.cornerRadius(25.0)
             
             HStack {
@@ -67,6 +72,7 @@ struct BaseDetails_Previews: PreviewProvider {
             id: "1",
             name: "STAG Trans",
             code: "STAG",
+            amount: 0.0,
             currency: currency,
             total: 10.0,
             transactions: [

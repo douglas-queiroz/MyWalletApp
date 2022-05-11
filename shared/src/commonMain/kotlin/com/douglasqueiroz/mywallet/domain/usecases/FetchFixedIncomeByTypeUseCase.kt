@@ -23,6 +23,7 @@ internal class FetchFixedIncomeByTypeUseCaseImpl(
                 id = it.id,
                 name = it.name ?: "",
                 code = "",
+                amount = 0.0,
                 currency = CurrencyDto(it.currencyId, it.currencyName ?: "", it.currencySymbol ?: ""),
                 total = it.total ?: 0.0,
                 transactions = getTransactions(it.id)

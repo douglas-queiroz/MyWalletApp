@@ -19,6 +19,7 @@ struct TransactionItem: Identifiable {
 struct Asset {
     let name: String
     let symbol: String
+    let amount: String
     let total: String
 }
 
@@ -31,6 +32,7 @@ class BaseDetailsViewModel: ObservableObject, Identifiable {
     
     private var assetDto: AssetDto
     private let getActiveUseCase: GetAssetUseCase
+    private let deleteTransactionUseCase: DeleteTransactionUseCase
     
     var transactionFormViewModel: Binding<TransactionFormViewModel?> {
         Binding(to: \.state.transactionFormViewModel, on: self)
@@ -40,10 +42,12 @@ class BaseDetailsViewModel: ObservableObject, Identifiable {
         let databaseFactory = DatabaseDriverFactory()
         let doaminModule = DomainModule(databaseDriverFactory: databaseFactory)
         
+        self.deleteTransactionUseCase = doaminModule.getDeleteTransactionUseCase()
         self.getActiveUseCase = doaminModule.getGetAssetUseCase()
         self.asset = Asset(
             name: asset.name,
             symbol: asset.code,
+            amount: asset.amount.formatTwoDigits(),
             total: "\(asset.currency.symbol) \(asset.total.formatTwoDigits())"
         )
         self.state = initState
@@ -55,14 +59,15 @@ class BaseDetailsViewModel: ObservableObject, Identifiable {
         })
     }
     
-    private func updateActive() {
+    private func updateAsset() {
         getActiveUseCase.execute(id: assetDto.id) {[weak self] assetDto, error in
             if let assetDto = assetDto {
                 self?.assetDto = assetDto
                 self?.asset = Asset(
                     name: assetDto.name,
                     symbol: assetDto.code,
-                    total: "\(assetDto.currency) \(assetDto.total.formatTwoDigits())"
+                    amount: assetDto.amount.formatTwoDigits(),
+                    total: "\(assetDto.currency.symbol) \(assetDto.total.formatTwoDigits())"
                 )
                 self?.transactionItems = assetDto.transactions.enumerated().map({ index, transactionDto in
                     let total = assetDto.currency.symbol + transactionDto.total.formatTwoDigits()
@@ -81,10 +86,24 @@ class BaseDetailsViewModel: ObservableObject, Identifiable {
             active: assetDto,
             state: .init(),
             onCompleted: { [weak self] in
-                self?.updateActive()
+                self?.updateAsset()
                 self?.state.transactionFormViewModel = nil
             }
         )
+    }
+    
+    func deleteTransaction(indexSet: IndexSet) {
+        guard let index = indexSet.first else { return }
+        let transaction = assetDto.transactions[index]
+        
+        deleteTransactionUseCase.execute(id: transaction.id) {[weak self] _, error in
+            if let error = error {
+                print(error.localizedDescription)
+            } else {
+                self?.updateAsset()
+            }
+        }
+        
     }
 }
 
