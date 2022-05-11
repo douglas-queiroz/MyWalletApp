@@ -27,7 +27,7 @@ struct BaseListView: View {
                     viewModel.onAddButtonClick()
                 }
             }.sheet(item: $viewModel.assetFormViewModel) { viewModel in
-                AssetForm()
+                AssetForm(viewModel: viewModel)
             }
         }.navigationBarTitle(Text(viewModel.title), displayMode: .inline)
             .onAppear {
