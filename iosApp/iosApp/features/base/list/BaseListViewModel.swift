@@ -19,7 +19,7 @@ class BaseListViewModel: ObservableObject {
     }
     
     func load() {
-        assertionFailure()
+        fatalError("Load method needs to be implemented")
     }
     
     func updateList(with list: [BaseListItem]) {
@@ -27,6 +27,6 @@ class BaseListViewModel: ObservableObject {
     }
     
     func onAddButtonClick() {
-        self.assetFormViewModel = AssetFormViewModel()
+        
     }
 }

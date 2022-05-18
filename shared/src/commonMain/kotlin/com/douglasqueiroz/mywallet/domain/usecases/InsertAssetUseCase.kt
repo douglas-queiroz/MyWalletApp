@@ -16,8 +16,8 @@ interface InsertAssetUseCase {
     suspend fun execute(
         assetDto: AssetDto,
         assetType: AssetType,
-        fixedIncomeType: FixedIncomeType,
-        shareType: ShareType
+        fixedIncomeType: FixedIncomeType?,
+        shareType: ShareType?
     )
 }
 
@@ -30,8 +30,8 @@ internal class InsertAssetUseCaseImpl(
     override suspend fun execute(
         assetDto: AssetDto,
         assetType: AssetType,
-        fixedIncomeType: FixedIncomeType,
-        shareType: ShareType
+        fixedIncomeType: FixedIncomeType?,
+        shareType: ShareType?
     ) {
         when(assetType) {
             AssetType.FixedIncome -> saveFixedIncomeAsset(assetDto, fixedIncomeType)
@@ -39,14 +39,16 @@ internal class InsertAssetUseCaseImpl(
         }
     }
 
-    private suspend fun saveShareAsset(assetDto: AssetDto, shareType: ShareType) {
+    private suspend fun saveShareAsset(assetDto: AssetDto, shareType: ShareType?) {
+
+        val type = shareType ?: return
 
         ShareEntity(
             id = uuid4().toString(),
             name = assetDto.name,
             code = assetDto.code,
             currencyId = assetDto.currency.id,
-            type = shareType.ordinal.toLong(),
+            type = type.ordinal.toLong(),
             createdAt = dateUtil.getDateTimeNow().toString(),
             updatedAt = dateUtil.getDateTimeNow().toString()
         ).also {
@@ -55,12 +57,15 @@ internal class InsertAssetUseCaseImpl(
 
     }
 
-    private suspend fun saveFixedIncomeAsset(assetDto: AssetDto, fixedIncomeType: FixedIncomeType) {
+    private suspend fun saveFixedIncomeAsset(assetDto: AssetDto, fixedIncomeType: FixedIncomeType?) {
+
+        val type = fixedIncomeType ?: return
+
         FixedIncomeEntity(
             id = uuid4().toString(),
             name = assetDto.name,
             currencyId = assetDto.currency.id,
-            type = fixedIncomeType.ordinal.toLong(),
+            type = type.ordinal.toLong(),
             createdAt = dateUtil.getDateTimeNow().toString(),
             updatedAt = dateUtil.getDateTimeNow().toString()
         ).also {

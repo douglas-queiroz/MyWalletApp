@@ -46,4 +46,14 @@ class FixedIncomeList: BaseListViewModel {
             }
         }
     }
+    
+    override func onAddButtonClick() {
+        self.assetFormViewModel = FixedIncomeAssetFormViewModel(
+            fixedIncomeType: type,
+            onComplete: { [weak self] in
+                self?.assetFormViewModel = nil
+                self?.load()
+            }
+        )
+    }
 }

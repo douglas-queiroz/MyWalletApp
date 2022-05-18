@@ -65,4 +65,14 @@ class ShareViewModel: BaseListViewModel {
             }
         }
     }
+    
+    override func onAddButtonClick() {
+        self.assetFormViewModel = ShareAssetFormViewModel(
+            shareType: type,
+            onComplete: { [weak self] in
+                self?.assetFormViewModel = nil
+                self?.load()
+            }
+        )
+    }
 }

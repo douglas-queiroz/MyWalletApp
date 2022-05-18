@@ -14,7 +14,7 @@ struct AssetForm: View {
     let currencies = ["Euro", "Real", "Dolar"]
     
     @State var currency = ""
-    @ObservedObject var viewModel: AssetFormViewModel
+    @StateObject var viewModel: AssetFormViewModel
     
     var body: some View {
         NavigationView {
@@ -46,6 +46,8 @@ struct AssetForm: View {
 
 struct AssetForm_Previews: PreviewProvider {
     static var previews: some View {
-        AssetForm(viewModel: AssetFormViewModel())
+        AssetForm(viewModel: AssetFormViewModel(onComplete: {
+            
+        }))
     }
 }
