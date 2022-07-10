@@ -17,12 +17,12 @@ struct TransactionFormView: View {
         Form {
             MWTextField(
                 field: "Date (yyyy-mm-dd)",
-                keyboardType: .numberPad,
+                keyboardType: .numbersAndPunctuation,
                 value: $viewModel.date
             )
             MWTextField(
                 field: "Amount",
-                keyboardType: .decimalPad,
+                keyboardType: .numbersAndPunctuation,
                 value: $viewModel.amount
             )
             MWTextField(

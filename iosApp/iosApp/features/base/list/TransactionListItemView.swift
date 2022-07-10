@@ -13,16 +13,31 @@ struct TransactionListItemView: View {
     let item: TransactionItem
     
     var body: some View {
-        HStack {
-            Text(item.date)
-            Spacer()
-            Text(item.total)
+        VStack {
+            HStack {
+                Text(item.date)
+                Spacer()
+                Text(item.quantity)
+                Text(item.price)
+            }.padding(.top, 20)
+            
+            HStack {
+                Spacer()
+                Text("Total:")
+                Text(item.total)
+            }.padding(.bottom, 20)
         }
     }
 }
 
 struct TransactionListItemView_Previews: PreviewProvider {
     static var previews: some View {
-        TransactionListItemView(item: TransactionItem(id: 1, date: "10/10/2020", total: "$10.00"))
+        TransactionListItemView(item: TransactionItem(
+            id: 1,
+            date: "10/10/2020",
+            quantity: "10x",
+            price: "R$ 10.00",
+            total: "R$ 10.00"
+        ))
     }
 }

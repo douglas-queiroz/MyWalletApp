@@ -13,6 +13,8 @@ import SwiftUI
 struct TransactionItem: Identifiable {
     let id: Int
     let date: String
+    let quantity: String
+    let price: String
     let total: String
 }
 
@@ -47,7 +49,7 @@ class BaseDetailsViewModel: ObservableObject, Identifiable {
         self.asset = Asset(
             name: asset.name,
             symbol: asset.code,
-            amount: asset.amount.formatTwoDigits(),
+            amount: asset.amount.formatFourDigits(),
             total: "\(asset.currency.symbol) \(asset.total.formatTwoDigits())"
         )
         self.state = initState
@@ -55,7 +57,13 @@ class BaseDetailsViewModel: ObservableObject, Identifiable {
         
         self.transactionItems = asset.transactions.enumerated().map({ index, transactionDto in
             let total = asset.currency.symbol + transactionDto.total.formatTwoDigits()
-            return TransactionItem(id: index, date: transactionDto.date, total: total)
+            return TransactionItem(
+                id: index,
+                date: transactionDto.date,
+                quantity: transactionDto.quantity.formatFourDigits() + "x",
+                price: asset.currency.symbol + transactionDto.price.formatTwoDigits(),
+                total: total
+            )
         })
     }
     
@@ -66,12 +74,18 @@ class BaseDetailsViewModel: ObservableObject, Identifiable {
                 self?.asset = Asset(
                     name: assetDto.name,
                     symbol: assetDto.code,
-                    amount: assetDto.amount.formatTwoDigits(),
+                    amount: assetDto.amount.formatFourDigits(),
                     total: "\(assetDto.currency.symbol) \(assetDto.total.formatTwoDigits())"
                 )
                 self?.transactionItems = assetDto.transactions.enumerated().map({ index, transactionDto in
                     let total = assetDto.currency.symbol + transactionDto.total.formatTwoDigits()
-                    return TransactionItem(id: index, date: transactionDto.date, total: total)
+                    return TransactionItem(
+                        id: index,
+                        date: transactionDto.date,
+                        quantity: transactionDto.quantity.formatFourDigits() + "x",
+                        price: assetDto.currency.symbol + transactionDto.price.formatTwoDigits(),
+                        total: total
+                    )
                 })
             }
             

@@ -35,6 +35,8 @@ internal class FetchFixedIncomeByTypeUseCaseImpl(
             TransactionDto(
                 id = it.id,
                 date = it.date ?: "",
+                quantity = it.quantity?.toDouble() ?: 0.0,
+                price = it.price?.toDouble() ?: 0.0,
                 total = it.total?.toDouble() ?: 0.0
             )
         }

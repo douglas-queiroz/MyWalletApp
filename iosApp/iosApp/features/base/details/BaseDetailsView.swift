@@ -76,7 +76,13 @@ struct BaseDetails_Previews: PreviewProvider {
             currency: currency,
             total: 10.0,
             transactions: [
-                TransactionDto(id: "1", date: "10/10/2020", total: 10.00)
+                TransactionDto(
+                    id: "1",
+                    date: "10/10/2020",
+                    quantity: 0.222,
+                    price: 10.00,
+                    total: 10.00
+                )
             ])
         
         NavigationView {
