@@ -107,6 +107,7 @@ android {
         minSdk = 27
         targetSdk = 31
     }
+    namespace = "com.douglasqueiroz.mywallet"
 }
 
 sqldelight {
