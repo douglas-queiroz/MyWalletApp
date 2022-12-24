@@ -17,6 +17,7 @@ val serializationVersion = "1.2.2"
 val ktorVersion = "1.6.1"
 val datetime = "0.3.2"
 val uuidVersion = "0.4.0"
+val koin = "3.2.0"
 
 version = "1.0"
 
@@ -56,6 +57,7 @@ kotlin {
                 implementation("com.squareup.sqldelight:runtime:$sqlDelightVersion")
                 implementation("org.jetbrains.kotlinx:kotlinx-datetime:$datetime")
                 implementation("com.benasher44:uuid:$uuidVersion")
+                implementation("io.insert-koin:koin-core:$koin")
             }
         }
         val commonTest by getting {

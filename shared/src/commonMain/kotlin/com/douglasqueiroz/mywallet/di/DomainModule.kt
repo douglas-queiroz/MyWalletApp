@@ -6,10 +6,19 @@ import com.douglasqueiroz.mywallet.repository.local.*
 import com.douglasqueiroz.mywallet.repository.remote.MyWalletOldApi
 import com.douglasqueiroz.mywallet.repository.remote.QuotationAPI
 import com.douglasqueiroz.mywallet.util.DateUtil
+import org.koin.dsl.module
 
 class DomainModule(
     private val databaseDriverFactory: DatabaseDriverFactory
 ) {
+
+    companion object {
+        val module = module {
+            factory<CalculateOverallReportUseCase> {
+                CalculateOverallReportUseCaseImpl(get(), get(), get(), get())
+            }
+        }
+    }
 
     fun getLoadDatabaseUseCase() : LoadDatabaseUseCase {
         val oldApi = MyWalletOldApi()
