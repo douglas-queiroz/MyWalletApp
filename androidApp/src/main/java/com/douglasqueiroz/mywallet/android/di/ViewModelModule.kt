@@ -7,6 +7,11 @@ import org.koin.dsl.module
 object ViewModelModule {
 
     val module = module {
-        viewModel { MainViewModel(loadOverallReportUseCase = get()) }
+        viewModel {
+            MainViewModel(
+                loadOverallReportUseCase = get(),
+                collectQuotationsUseCase = get()
+            )
+        }
     }
 }

@@ -9,11 +9,14 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Menu
+import androidx.compose.material.icons.filled.MoreVert
+import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -24,11 +27,12 @@ import com.douglasqueiroz.mywallet.android.home.MainViewModel
 import com.douglasqueiroz.mywallet.android.home.ShareItem
 import com.douglasqueiroz.mywallet.domain.dto.OverallReportDto
 import com.douglasqueiroz.mywallet.domain.usecases.CalculateOverallReportUseCase
+import com.douglasqueiroz.mywallet.domain.usecases.CollectQuotationsUseCase
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainActivity : AppCompatActivity() {
 
-    val viewModel: MainViewModel by viewModel()
+    private val viewModel: MainViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -138,6 +142,16 @@ class MainActivity : AppCompatActivity() {
                     modifier = Modifier.fillMaxWidth(),
                     textAlign = TextAlign.Center
                 )
+            },
+            navigationIcon = {
+                IconButton(onClick = { }) {
+                    Icon(Icons.Filled.Menu,"")
+                }
+            },
+            actions = {
+                IconButton(onClick = { viewModel.refresh() }) {
+                    Icon(Icons.Default.Refresh, "Refresh")
+                }
             }
         )
     }
@@ -160,6 +174,11 @@ class MainActivity : AppCompatActivity() {
             ),
             loadOverallReportUseCase = object : CalculateOverallReportUseCase {
                 override suspend fun execute(): List<OverallReportDto> {
+                    TODO("Not yet implemented")
+                }
+            },
+            collectQuotationsUseCase = object: CollectQuotationsUseCase {
+                override suspend fun execute() {
                     TODO("Not yet implemented")
                 }
             }

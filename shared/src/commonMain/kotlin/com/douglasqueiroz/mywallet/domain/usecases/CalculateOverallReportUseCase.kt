@@ -18,33 +18,36 @@ internal class CalculateOverallReportUseCaseImpl(
     private val fixedIncomeDao: FixedIncomeDao,
     private val shareDao: ShareDao,
     private val currencyDao: CurrencyDao,
-    private val transactionDao: TransactionDao
+    private val transactionDao: TransactionDao,
+    private val addBRLConversionEntityUseCase: AddBRLConversionEntityUseCase
 ): CalculateOverallReportUseCase {
 
     override suspend fun execute(): List<OverallReportDto> {
 
+        addBRLConversionEntityUseCase.execute()
+
         val savingTotal = fixedIncomeDao
             .getReportInfoByType(FixedIncomeType.SAVING_ACCOUNT)
-            .sumOf { convertToEuroA(it) }
+            .sumOf { convertToRealA(it) }
 
         val stockTotal = shareDao
             .getReportInfoByType(ShareType.Stock)
-            .sumOf { convertToEuro(it) }
+            .sumOf { convertToReal(it) }
 
         val reitTotal = shareDao
             .getReportInfoByType(ShareType.REIT)
-            .sumOf { convertToEuro(it) }
+            .sumOf { convertToReal(it) }
 
         val goldTotal = shareDao
             .getReportInfoByType(ShareType.GOLD)
             .sumOf {
-                convertToEuro(it)
+                convertToReal(it)
             }
 
         val bitcoinTotal = shareDao
             .getReportInfoByType(ShareType.BITCOIN)
             .sumOf {
-                convertToEuro(it)
+                convertToReal(it)
             }
 
         val total = savingTotal + stockTotal + reitTotal + bitcoinTotal + goldTotal
@@ -99,7 +102,7 @@ internal class CalculateOverallReportUseCaseImpl(
         )
     }
 
-    private suspend fun convertToEuroA(reportInfo: FixedIncomeReportInfo): Double {
+    private suspend fun convertToRealA(reportInfo: FixedIncomeReportInfo): Double {
         val currencyIdTo  = reportInfo.currencyId
         val rate = currencyDao.getCurrencyRate(currencyIdTo)
         val price = reportInfo.price ?: 0.0
@@ -107,7 +110,7 @@ internal class CalculateOverallReportUseCaseImpl(
         return price / rate
     }
 
-    private suspend fun convertToEuro(reportInfo: ShareReportInfo): Double {
+    private suspend fun convertToReal(reportInfo: ShareReportInfo): Double {
         val currencyIdTo  = reportInfo.currencyId
         val rate = currencyDao.getCurrencyRate(currencyIdTo)
         val price = reportInfo.price?.toDouble() ?: transactionDao.getLastByTransactionableId(reportInfo.id)?.price?.toDouble() ?: 0.0

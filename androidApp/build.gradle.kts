@@ -30,6 +30,7 @@ dependencies {
     implementation(project(":shared"))
 
     val koinAndroidVersion= "3.3.1"
+    val workManager = "2.7.1"
 
     implementation("androidx.compose.material:material:1.3.1")
     implementation("androidx.compose.ui:ui-tooling-preview:1.4.0-alpha03")
@@ -37,7 +38,12 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.5.1")
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1")
     implementation("io.insert-koin:koin-android:$koinAndroidVersion")
+    implementation("io.insert-koin:koin-android-compat:$koinAndroidVersion")
     debugImplementation("androidx.compose.ui:ui-tooling:1.4.0-alpha03")
+
+    // Work Manager
+    implementation("androidx.work:work-runtime-ktx:$workManager")
+    implementation("androidx.work:work-gcm:$workManager")
 
     implementation("com.google.android.material:material:1.7.0")
     implementation("androidx.appcompat:appcompat:1.5.1")

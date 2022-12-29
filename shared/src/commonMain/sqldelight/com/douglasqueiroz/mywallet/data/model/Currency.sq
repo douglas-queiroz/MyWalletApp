@@ -30,7 +30,7 @@ INNER JOIN
 INNER JOIN
 	CurrencyQuotationEntity cq ON cc.id = cq.currencyConversionId
 WHERE
-	c.name = 'Euro'
+	c.name = 'Real'
 AND
 	cc.currencyToId = ?
 ORDER BY cq.date DESC

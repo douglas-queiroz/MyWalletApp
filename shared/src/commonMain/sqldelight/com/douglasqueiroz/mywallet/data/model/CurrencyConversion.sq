@@ -20,3 +20,6 @@ DELETE FROM CurrencyConversionEntity;
 
 getAll:
 SELECT * FROM CurrencyConversionEntity;
+
+countBRLConversions:
+SELECT COUNT(*) FROM CurrencyConversionEntity cc JOIN CurrencyEntity c ON c.id = cc.currencyFromId WHERE c.name = 'Real';

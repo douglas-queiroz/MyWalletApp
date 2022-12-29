@@ -31,4 +31,8 @@ internal class CurrencyConversionDao(
     suspend fun getAll(): List<CurrencyConversionEntity> = withContext(Default) {
         return@withContext database.currencyConversionQueries.getAll().executeAsList()
     }
+
+    suspend fun countBRLConversions() = withContext(Default) {
+        return@withContext database.currencyConversionQueries.countBRLConversions().executeAsOne()
+    }
 }

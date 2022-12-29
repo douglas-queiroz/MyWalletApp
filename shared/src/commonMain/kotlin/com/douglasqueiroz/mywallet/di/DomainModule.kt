@@ -14,8 +14,17 @@ class DomainModule(
 
     companion object {
         val module = module {
+
             factory<CalculateOverallReportUseCase> {
-                CalculateOverallReportUseCaseImpl(get(), get(), get(), get())
+                CalculateOverallReportUseCaseImpl(get(), get(), get(), get(), get())
+            }
+
+            factory<CollectQuotationsUseCase> {
+                CollectQuotationsUseCaseImpl(get(), get(), get(), get(), get(), get())
+            }
+
+            factory<AddBRLConversionEntityUseCase> {
+                AddBRLConversionEntityUseCaseImpl(get(), get())
             }
         }
     }
@@ -66,15 +75,6 @@ class DomainModule(
             downloadCurrencyConversionUseCase = downloadCurrencyConversionUseCase,
             downloadQuotesUseCase = downloadQuotesUseCase,
             downloadCurrencyQuotationUseCase = downloadCurrencyQuotationUseCase
-        )
-    }
-
-    fun getCalculateOverallReportUseCase(): CalculateOverallReportUseCase {
-        return CalculateOverallReportUseCaseImpl(
-            fixedIncomeDao = FixedIncomeDao(databaseDriverFactory),
-            shareDao = ShareDao(databaseDriverFactory),
-            currencyDao = CurrencyDao(databaseDriverFactory),
-            transactionDao = TransactionDao(databaseDriverFactory)
         )
     }
 
