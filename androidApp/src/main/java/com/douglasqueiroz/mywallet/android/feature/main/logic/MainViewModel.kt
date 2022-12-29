@@ -1,4 +1,4 @@
-package com.douglasqueiroz.mywallet.android.home
+package com.douglasqueiroz.mywallet.android.feature.main.logic
 
 import androidx.compose.runtime.*
 import androidx.lifecycle.ViewModel
@@ -47,21 +47,11 @@ class MainViewModel(
         )
     }
 
-    fun refresh() = viewModelScope.launch {
-        state = state.copy(showLoadingProgress = true)
-        collectQuotationsUseCase.execute()
-        loadReport()
+    fun refresh() {
+        viewModelScope.launch {
+            state = state.copy(showLoadingProgress = true)
+            collectQuotationsUseCase.execute()
+            loadReport()
+        }
     }
 }
-
-data class ShareItem(
-    val name: String,
-    val total: String,
-    val percentage: String
-)
-
-data class MainStateView (
-    val shareItemList: List<ShareItem> = emptyList(),
-    val showLoadingProgress: Boolean = false,
-    val total: String = "€ 0.00"
-)
