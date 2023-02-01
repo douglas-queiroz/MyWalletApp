@@ -11,6 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.douglasqueiroz.mywallet.android.compose.AssetType
 import com.douglasqueiroz.mywallet.android.compose.MyWalletLoading
 import com.douglasqueiroz.mywallet.android.feature.main.logic.MainStateView
 import com.douglasqueiroz.mywallet.android.feature.main.logic.MainViewModel
@@ -21,15 +22,15 @@ import com.douglasqueiroz.mywallet.domain.usecases.CollectQuotationsUseCase
 
 @Composable
 fun MainContent(
-    viewModel: MainViewModel
+    state: MainStateView,
+    onRefreshBtnClick: () -> Unit,
+    onAssetClick: (AssetType) -> Unit
 ) {
-
-    val lazyListState = rememberLazyListState()
 
     MaterialTheme {
 
         Scaffold(
-            topBar = { MainTopBar(viewModel::refresh) },
+            topBar = { MainTopBar(onRefreshBtnClick) },
         ) {
 
             Box(
@@ -44,12 +45,13 @@ fun MainContent(
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     MainViewList(
-                        shareItemList = viewModel.state.shareItemList,
-                        total = viewModel.state.total
+                        shareItemList = state.shareItemList,
+                        total = state.total,
+                        onItemClick = onAssetClick
                     )
                 }
 
-                MyWalletLoading(show = viewModel.state.showLoadingProgress)
+                MyWalletLoading(show = state.showLoadingProgress)
             }
         }
     }
@@ -58,30 +60,22 @@ fun MainContent(
 @Preview
 @Composable
 fun PreviewMainContent() {
-    val viewModel = MainViewModel(
-        initialStateView = MainStateView(
-            shareItemList = arrayListOf(
-                ShareItem("Stock", "€100", "30%"),
-                ShareItem("Fixed income", "€400", "50%"),
-                ShareItem("Saves", "€300", "25%"),
-                ShareItem("Saves", "€300", "25%"),
-                ShareItem("Saves", "€300", "25%"),
-                ShareItem("Saves", "€300", "25%"),
-                ShareItem("Saves", "€300", "25%"),
-            ),
-            total = "€100.00"
+    val state =  MainStateView(
+        shareItemList = arrayListOf(
+            ShareItem("Stock", "€100", "30%"),
+            ShareItem("Fixed income", "€400", "50%"),
+            ShareItem("Saves", "€300", "25%"),
+            ShareItem("Saves", "€300", "25%"),
+            ShareItem("Saves", "€300", "25%"),
+            ShareItem("Saves", "€300", "25%"),
+            ShareItem("Saves", "€300", "25%"),
         ),
-        loadOverallReportUseCase = object : CalculateOverallReportUseCase {
-            override suspend fun execute(): List<OverallReportDto> {
-                TODO("Not yet implemented")
-            }
-        },
-        collectQuotationsUseCase = object: CollectQuotationsUseCase {
-            override suspend fun execute() {
-                TODO("Not yet implemented")
-            }
-        }
+        total = "€100.00"
     )
 
-    MainContent(viewModel)
+    MainContent(
+        state = state,
+        onRefreshBtnClick = {},
+        onAssetClick = {}
+    )
 }

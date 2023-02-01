@@ -1,5 +1,6 @@
 package com.douglasqueiroz.mywallet.android.compose
 
+import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material.Icon
@@ -17,20 +18,16 @@ import com.douglasqueiroz.mywallet.android.R
 
 @Composable
 fun MyWalletTopAppBar(
-    actions: @Composable RowScope.() -> Unit = {}
+    actions: @Composable RowScope.() -> Unit = {},
+    @StringRes title: Int = R.string.app_name
 ) {
     TopAppBar(
         title = {
             Text(
-                text = stringResource(id = R.string.app_name),
+                text = stringResource(id = title),
                 modifier = Modifier.fillMaxWidth(),
                 textAlign = TextAlign.Center
             )
-        },
-        navigationIcon = {
-            IconButton(onClick = { }) {
-                Icon(Icons.Filled.Menu,"")
-            }
         },
         actions = actions
     )

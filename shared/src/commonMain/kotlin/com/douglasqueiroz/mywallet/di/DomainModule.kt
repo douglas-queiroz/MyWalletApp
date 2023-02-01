@@ -26,6 +26,14 @@ class DomainModule(
             factory<AddBRLConversionEntityUseCase> {
                 AddBRLConversionEntityUseCaseImpl(get(), get())
             }
+
+            factory<FetchFixedIncomeByTypeUseCase> {
+                FetchFixedIncomeByTypeUseCaseImpl(get(), get())
+            }
+
+            factory<FetchShareByTypeUseCase> {
+                FetchShareByTypeUseCaseImpl(get(), get())
+            }
         }
     }
 

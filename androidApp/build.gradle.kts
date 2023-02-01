@@ -29,16 +29,20 @@ android {
 dependencies {
     implementation(project(":shared"))
 
-    val koinAndroidVersion= "3.3.1"
+    val koinAndroidVersion= "3.3.2"
     val workManager = "2.7.1"
+    val navVersion = "2.5.3"
+    val koinJetpackCompose = "3.4.1"
 
     implementation("androidx.compose.material:material:1.3.1")
     implementation("androidx.compose.ui:ui-tooling-preview:1.4.0-alpha03")
     implementation("androidx.activity:activity-compose:1.6.1")
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.5.1")
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1")
+    implementation("androidx.navigation:navigation-compose:$navVersion")
     implementation("io.insert-koin:koin-android:$koinAndroidVersion")
     implementation("io.insert-koin:koin-android-compat:$koinAndroidVersion")
+    implementation("io.insert-koin:koin-androidx-compose:$koinJetpackCompose")
     debugImplementation("androidx.compose.ui:ui-tooling:1.4.0-alpha03")
 
     // Work Manager
