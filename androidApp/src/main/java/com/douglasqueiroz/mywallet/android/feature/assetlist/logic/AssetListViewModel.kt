@@ -1,6 +1,5 @@
 package com.douglasqueiroz.mywallet.android.feature.assetlist.logic
 
-import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -44,6 +43,7 @@ abstract class AssetListViewModel: ViewModel() {
         val total = it.currency.symbol + it.total.format("#.####")
 
         AssetListUIItem(
+            assetId = it.id,
             name = name,
             amount = it.amount.format(),
             total = total

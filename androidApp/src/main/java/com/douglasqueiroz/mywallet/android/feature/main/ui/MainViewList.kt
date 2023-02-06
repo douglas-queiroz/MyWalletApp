@@ -43,30 +43,27 @@ fun MainViewList(
                     .clickable { onItemClick(item.assetType) }
             ) {
 
-                Box(
+                Column(
                     modifier = Modifier
                         .height(100.dp)
                         .padding(16.dp)
                 ) {
 
-                    Column {
+                    Text(
+                        text = item.name,
+                        fontWeight = FontWeight.Bold,
+                        fontSize = 18.sp
+                    )
 
-                        Text(
-                            text = item.name,
-                            fontWeight = FontWeight.Bold,
-                            fontSize = 18.sp
-                        )
+                    Spacer(modifier = Modifier.weight(1f))
+
+                    Row(
+                        modifier = Modifier.align(Alignment.End)
+                    ) {
 
                         Spacer(modifier = Modifier.weight(1f))
 
-                        Row(
-                            modifier = Modifier.align(Alignment.End)
-                        ) {
-
-                            Spacer(modifier = Modifier.weight(1f))
-
-                            Text("Total: ${item.total} (${item.percentage})")
-                        }
+                        Text("Total: ${item.total} (${item.percentage})")
                     }
                 }
             }

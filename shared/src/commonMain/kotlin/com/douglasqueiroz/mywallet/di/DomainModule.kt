@@ -34,6 +34,14 @@ class DomainModule(
             factory<FetchShareByTypeUseCase> {
                 FetchShareByTypeUseCaseImpl(get(), get())
             }
+
+            factory<GetAssetUseCase> {
+                GetAssetUseCaseImpl(
+                    fixedIncomeDao = get(),
+                    shareDao = get(),
+                    transactionDao = get()
+                )
+            }
         }
     }
 

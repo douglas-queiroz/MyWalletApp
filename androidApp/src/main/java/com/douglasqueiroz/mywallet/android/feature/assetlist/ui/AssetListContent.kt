@@ -1,6 +1,7 @@
 package com.douglasqueiroz.mywallet.android.feature.assetlist.ui
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -23,7 +24,8 @@ import com.douglasqueiroz.mywallet.android.feature.assetlist.logic.AssetListUIIt
 
 @Composable
 fun AssetListContent(
-    state: AssetListUIState
+    state: AssetListUIState,
+    onClick: (String) -> Unit
 ) {
 
     MaterialTheme {
@@ -32,31 +34,36 @@ fun AssetListContent(
         ) {
             AssertList(
                 padding = it,
-                list = state.assetList
+                list = state.assetList,
+                onClick = onClick
             )
         }
     }
 }
 
 @Composable
-fun AssertList(padding: PaddingValues, list: List<AssetListUIItem>) {
+fun AssertList(padding: PaddingValues, list: List<AssetListUIItem>, onClick: (String) -> Unit) {
     LazyColumn(modifier = Modifier.padding(padding), content = {
 
         items(items = list) { item ->
-            AssertCardItem(item = item)
+            AssertCardItem(item = item, onClick = onClick)
 
         }
     })
 }
 
 @Composable
-fun AssertCardItem(item: AssetListUIItem) {
+fun AssertCardItem(
+    item: AssetListUIItem,
+    onClick: (String) -> Unit
+) {
     Card(
         shape = RoundedCornerShape(8.dp),
         modifier = Modifier
             .padding(16.dp)
             .fillMaxWidth()
             .background(MaterialTheme.colors.surface)
+            .clickable { onClick(item.assetId) }
     ) {
 
         Box(
@@ -100,43 +107,50 @@ fun AssetListContentPreview() {
         type = "Fixed Income",
         assetList = listOf(
             AssetListUIItem(
+                assetId = "asset_id",
                 name = "(IPCA+10%) Tesouro Direto IPCA Mais 10 porcento",
                 amount = "100",
                 total = "R$ 20.000,00"
             ),
             AssetListUIItem(
+                assetId = "asset_id",
                 name = "Tesouro Direto IPCA",
                 amount = "100",
                 total = "R$ 20.000,00"
             ),
             AssetListUIItem(
+                assetId = "asset_id",
                 name = "Tesouro Direto IPCA",
                 amount = "100",
                 total = "R$ 20.000,00"
             ),
             AssetListUIItem(
+                assetId = "asset_id",
                 name = "Tesouro Direto IPCA",
                 amount = "100",
                 total = "R$ 20.000,00"
             ),
             AssetListUIItem(
+                assetId = "asset_id",
                 name = "Tesouro Direto IPCA",
                 amount = "100",
                 total = "R$ 20.000,00"
             ),
             AssetListUIItem(
+                assetId = "asset_id",
                 name = "Tesouro Direto IPCA",
                 amount = "100",
                 total = "R$ 20.000,00"
             ),
             AssetListUIItem(
+                assetId = "asset_id",
                 name = "Tesouro Direto IPCA",
                 amount = "100",
                 total = "R$ 20.000,00"
-            ),
+            )
         )
     )
 
 
-    AssetListContent(state)
+    AssetListContent(state, onClick = {})
 }

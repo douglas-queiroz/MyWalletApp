@@ -6,6 +6,8 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.douglasqueiroz.mywallet.android.feature.assetdetails.logic.AssetDetailsViewModel
+import com.douglasqueiroz.mywallet.android.feature.assetdetails.ui.AssetDetailsScreen
 import com.douglasqueiroz.mywallet.android.feature.assetlist.logic.AssetListViewModel
 import com.douglasqueiroz.mywallet.android.feature.assetlist.logic.FixedIncomeAssetListViewModel
 import com.douglasqueiroz.mywallet.android.feature.assetlist.logic.ShareAssetListViewModel
@@ -63,13 +65,25 @@ fun SetupNavHost() {
             } ?: throw IllegalArgumentException()
 
 
-            AssetListContent(state = viewModel.state)
+            AssetListContent(state = viewModel.state, onClick = { assetId ->
+                navHostController.navigate("asset_details/$assetId")
+            })
+        }
+
+        composable(
+            route = Screen.AssetDetails.route,
+            arguments = listOf(navArgument(name = "asset_id") { type = NavType.StringType } )
+        ) {
+            val assetId = it.arguments?.getString("asset_id") ?: throw IllegalArgumentException()
+            val viewModel = koinViewModel<AssetDetailsViewModel> { parametersOf(assetId) }
+
+            AssetDetailsScreen(state = viewModel.state)
         }
     }
 }
 
 enum class Screen(val route: String) {
-    MainScreen("main"), AssetListScreen("asset_list/{asset_type}")
+    MainScreen("main"), AssetListScreen("asset_list/{asset_type}"), AssetDetails("asset_details/{asset_id}")
 }
 
 enum class AssetType {

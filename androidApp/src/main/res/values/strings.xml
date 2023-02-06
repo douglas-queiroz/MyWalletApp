@@ -2,4 +2,8 @@
 <resources>
     <string name="total">- TOTAL -</string>
     <string name="app_name">My Wallet</string>
+    <string name="asset_details_name">Name: %s</string>
+    <string name="asset_details_code"><b>Code:</b> %s</string>
+    <string name="asset_details_amount"><b>Quantity:</b> %s</string>
+    <string name="asset_details_total"><b>Total:</b> %s</string>
 </resources>

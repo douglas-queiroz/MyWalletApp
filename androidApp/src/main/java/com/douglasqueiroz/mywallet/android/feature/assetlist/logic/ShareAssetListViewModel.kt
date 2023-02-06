@@ -1,6 +1,5 @@
 package com.douglasqueiroz.mywallet.android.feature.assetlist.logic
 
-import android.util.Log
 import com.douglasqueiroz.mywallet.domain.enum.ShareType
 import com.douglasqueiroz.mywallet.domain.usecases.FetchShareByTypeUseCase
 
