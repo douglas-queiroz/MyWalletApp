@@ -42,6 +42,10 @@ class DomainModule(
                     transactionDao = get()
                 )
             }
+
+            factory<AddTransactionUseCase> {
+                AddTransactionUseCaseImpl(transactionDao = get())
+            }
         }
     }
 

@@ -6,4 +6,15 @@
     <string name="asset_details_code"><b>Code:</b> %s</string>
     <string name="asset_details_amount"><b>Quantity:</b> %s</string>
     <string name="asset_details_total"><b>Total:</b> %s</string>
+    <string name="button_cancel">Cancel</string>
+    <string name="button_add">Add</string>
+    <string name="add_transaction_price_label">Price:</string>
+    <string name="add_transaction_quantity_label">Quantity:</string>
+    <string name="add_transaction_date_label">Date:</string>
+    <string name="add_transaction_invalid_quantity">Invalid Quantity</string>
+    <string name="add_transaction_invalid_price">Invalid Price</string>
+    <string name="add_transaction_invalid_date">invalid Date</string>
+    <string name="add_transaction_total_label">Total:</string>
+    <string name="add_transaction_button">Add Transaction</string>
+    <string name="back_button">Back</string>
 </resources>

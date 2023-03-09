@@ -1,5 +1,6 @@
 package com.douglasqueiroz.mywallet.android.di
 
+import com.douglasqueiroz.mywallet.android.feature.addtransaction.logic.AddTransactionViewModel
 import com.douglasqueiroz.mywallet.android.feature.assetdetails.logic.AssetDetailsViewModel
 import com.douglasqueiroz.mywallet.android.feature.assetlist.logic.FixedIncomeAssetListViewModel
 import com.douglasqueiroz.mywallet.android.feature.assetlist.logic.ShareAssetListViewModel
@@ -35,6 +36,15 @@ object ViewModelModule {
             AssetDetailsViewModel(
                 assetId = parametersHolder.get(),
                 getAssetUseCase = get()
+            )
+        }
+
+        viewModel { parametersHolder ->
+            AddTransactionViewModel(
+                assetId = parametersHolder.get(),
+                stringResUtil = get(),
+                getAssetUseCase = get(),
+                addTransactionUseCase = get()
             )
         }
     }

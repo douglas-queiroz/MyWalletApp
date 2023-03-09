@@ -6,6 +6,9 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.douglasqueiroz.mywallet.android.extension.format
+import com.douglasqueiroz.mywallet.android.extension.toDate
+import com.douglasqueiroz.mywallet.domain.dto.AssetDto
+import com.douglasqueiroz.mywallet.domain.usecases.AddTransactionUseCase
 import com.douglasqueiroz.mywallet.domain.usecases.GetAssetUseCase
 import kotlinx.coroutines.launch
 
@@ -14,15 +17,14 @@ class AssetDetailsViewModel(
     private val getAssetUseCase: GetAssetUseCase
 ): ViewModel() {
 
-    var state: AssetDetailsUIState by mutableStateOf(AssetDetailsUIState())
+    var state: AssetDetailsUIState by mutableStateOf(AssetDetailsUIState(assetId = assetId))
         private set
 
-    init {
-        load()
-    }
+    private lateinit var assetDto: AssetDto
 
-    private fun load() = viewModelScope.launch {
-        val assetDto = getAssetUseCase.execute(assetId) ?: return@launch
+    fun load() = viewModelScope.launch {
+        assetDto = getAssetUseCase.execute(assetId) ?: return@launch
+
         state = state.copy(
             name = assetDto.name,
             code = assetDto.code,

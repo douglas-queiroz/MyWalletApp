@@ -15,6 +15,7 @@ class MyWalletModules(
         DomainModule.module,
         DaoModule(databaseDriverFactory).module,
         ApiModule.module,
-        UtilModule.module
+        UtilModule.module,
+        AppUtilModule.module
     )
 }

@@ -4,21 +4,40 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.material.Button
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleEventObserver
+import androidx.lifecycle.LifecycleOwner
 import com.douglasqueiroz.mywallet.android.R
 import com.douglasqueiroz.mywallet.android.compose.MyWalletTopAppBar
 import com.douglasqueiroz.mywallet.android.feature.assetdetails.logic.AssetDetailsUIState
 import com.douglasqueiroz.mywallet.android.feature.assetdetails.logic.AssetDetailsUITransactionItem
 
 @Composable
-fun AssetDetailsScreen(state: AssetDetailsUIState) {
+fun AssetDetailsScreen(
+    state: AssetDetailsUIState,
+    onAddTransaction: (String) -> Unit = { _ -> },
+    refresh: () -> Unit = { }
+) {
+
+    OnLifecycleEvent { owner, event ->
+        // do stuff on event
+        when (event) {
+            Lifecycle.Event.ON_RESUME -> { refresh.invoke() }
+            else                      -> { /* other stuff */ }
+        }
+    }
 
     MaterialTheme {
 
@@ -27,7 +46,8 @@ fun AssetDetailsScreen(state: AssetDetailsUIState) {
         ) {
             AssetDetailsContent(
                 paddingValues = it,
-                state = state
+                state = state,
+                onAddTransaction = onAddTransaction
             )
         }
     }
@@ -36,40 +56,68 @@ fun AssetDetailsScreen(state: AssetDetailsUIState) {
 @Composable
 fun AssetDetailsContent(
     paddingValues: PaddingValues,
-    state: AssetDetailsUIState
+    state: AssetDetailsUIState,
+    onAddTransaction: (String) -> Unit
 ) {
 
-    LazyColumn(
-        Modifier
-            .padding(paddingValues)
-            .padding(16.dp)
+    Column(modifier = Modifier
+        .padding(paddingValues)
     ) {
+        LazyColumn(
+            Modifier
+                .padding(16.dp)
+                .weight(1f)
+        ) {
 
-        itemsIndexed(state.transactionList) { index, item ->
+            itemsIndexed(state.transactionList) { index, item ->
 
-            if (index == 0) {
-                AssetDetailsHeader(
-                    name = state.name,
-                    code = state.code,
-                    quantity = state.quantity,
-                    total = state.total
-                )
+                if (index == 0) {
+                    AssetDetailsHeader(
+                        name = state.name,
+                        code = state.code,
+                        quantity = state.quantity,
+                        total = state.total
+                    )
+                }
+
+                Row(
+                    modifier = Modifier
+                        .padding(8.dp)
+                        .fillMaxWidth()
+                        .background(MaterialTheme.colors.surface)
+                ) {
+                    Text(text = item.date)
+                    Spacer(modifier = Modifier.weight(1.0f))
+                    Text(
+                        modifier = Modifier.padding(end = 8.dp),
+                        text = item.quantity
+                    )
+                    Text(text = item.total)
+                }
+
             }
-                
-            Row(
-                modifier = Modifier
-                    .padding(8.dp)
-                    .fillMaxWidth()
-                    .background(MaterialTheme.colors.surface)
+        }
+        
+        Row(
+            modifier = Modifier
+                .padding(16.dp)
+                .fillMaxWidth(),
+            horizontalArrangement = Arrangement.spacedBy(8.dp)
+        ) {
+
+            Button(
+                modifier = Modifier.weight(1f),
+                onClick = { /*TODO*/ }
             ) {
-                Text(text = item.date)
-                Spacer(modifier = Modifier.weight(1.0f))
-                Text(
-                    modifier = Modifier.padding(end = 8.dp),
-                    text = item.quantity)
-                Text(text = item.total)
+                Text(text = stringResource(id = R.string.back_button))
             }
 
+            Button(
+                modifier = Modifier.weight(1f),
+                onClick = { onAddTransaction(state.assetId) } )
+            {
+                Text(text = stringResource(id = R.string.add_transaction_button))
+            }
         }
     }
 }
@@ -132,4 +180,22 @@ fun AssetDetailsScreen_Preview() {
             )
         )
     )
+}
+
+@Composable
+fun OnLifecycleEvent(onEvent: (owner: LifecycleOwner, event: Lifecycle.Event) -> Unit) {
+    val eventHandler = rememberUpdatedState(onEvent)
+    val lifecycleOwner = rememberUpdatedState(LocalLifecycleOwner.current)
+
+    DisposableEffect(lifecycleOwner.value) {
+        val lifecycle = lifecycleOwner.value.lifecycle
+        val observer = LifecycleEventObserver { owner, event ->
+            eventHandler.value(owner, event)
+        }
+
+        lifecycle.addObserver(observer)
+        onDispose {
+            lifecycle.removeObserver(observer)
+        }
+    }
 }

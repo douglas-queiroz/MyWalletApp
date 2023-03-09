@@ -1,11 +1,15 @@
 package com.douglasqueiroz.mywallet.android.compose
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.douglasqueiroz.mywallet.android.feature.addtransaction.logic.AddTransactionViewModel
+import com.douglasqueiroz.mywallet.android.feature.addtransaction.ui.AddTransactionScreen
 import com.douglasqueiroz.mywallet.android.feature.assetdetails.logic.AssetDetailsViewModel
 import com.douglasqueiroz.mywallet.android.feature.assetdetails.ui.AssetDetailsScreen
 import com.douglasqueiroz.mywallet.android.feature.assetlist.logic.AssetListViewModel
@@ -77,13 +81,38 @@ fun SetupNavHost() {
             val assetId = it.arguments?.getString("asset_id") ?: throw IllegalArgumentException()
             val viewModel = koinViewModel<AssetDetailsViewModel> { parametersOf(assetId) }
 
-            AssetDetailsScreen(state = viewModel.state)
+            AssetDetailsScreen(
+                state = viewModel.state,
+                onAddTransaction = { assetId ->
+                    navHostController.navigate("add_transaction/$assetId")
+                },
+                refresh = { viewModel.load() }
+            )
+        }
+
+        composable(
+            route = Screen.AddTransaction.route,
+            arguments = listOf(navArgument(name = "asset_id") { type= NavType.StringType })
+        ) {
+            val assetId = it.arguments?.getString("asset_id") ?: throw IllegalArgumentException()
+            val viewModel = koinViewModel<AddTransactionViewModel> { parametersOf(assetId) }
+            viewModel.onBack = {
+                navHostController.navigateUp()
+            }
+
+            AddTransactionScreen(
+                state = viewModel.state,
+                onEvent = { viewModel.onEvent(it) }
+            )
         }
     }
 }
 
 enum class Screen(val route: String) {
-    MainScreen("main"), AssetListScreen("asset_list/{asset_type}"), AssetDetails("asset_details/{asset_id}")
+    MainScreen("main"),
+    AssetListScreen("asset_list/{asset_type}"),
+    AssetDetails("asset_details/{asset_id}"),
+    AddTransaction("add_transaction/{asset_id}")
 }
 
 enum class AssetType {
